@@ -118,6 +118,12 @@
           "parameterTypes": [
             "com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties$CoreConfiguration"
           ]
+        },
+        {
+          "name": "setMapperLocations",
+          "parameterTypes": [
+            "java.lang.String[]"
+          ]
         }
       ]
     },
@@ -161,6 +167,57 @@
       ]
     },
     {
+      "type": "com.baomidou.mybatisplus.core.conditions.AbstractWrapper",
+      "methods": [
+        {
+          "name": "getEntity",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSqlComment",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSqlFirst",
+          "parameterTypes": []
+        },
+        {
+          "name": "getSqlSegment",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.ISqlSegment"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.Wrapper"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.interfaces.Compare"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.interfaces.Func"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.interfaces.Join"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.interfaces.Nested"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.query.Query"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.core.conditions.query.QueryWrapper",
+      "methods": [
+        {
+          "name": "getSqlSelect",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "com.baomidou.mybatisplus.core.mapper.BaseMapper",
       "methods": [
         {
@@ -195,10 +252,63 @@
       ]
     },
     {
+      "type": "com.baomidou.mybatisplus.core.toolkit.Wrappers$EmptyWrapper"
+    },
+    {
       "type": "com.baomidou.mybatisplus.extension.ddl.IDdl"
     },
     {
       "type": "com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.extension.repository.AbstractRepository"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.extension.repository.CrudRepository",
+      "fields": [
+        {
+          "name": "baseMapper"
+        }
+      ]
+    },
+    {
+      "type": "com.baomidou.mybatisplus.extension.repository.IRepository",
+      "methods": [
+        {
+          "name": "getById",
+          "parameterTypes": [
+            "java.io.Serializable"
+          ]
+        },
+        {
+          "name": "list",
+          "parameterTypes": []
+        },
+        {
+          "name": "removeById",
+          "parameterTypes": [
+            "java.io.Serializable"
+          ]
+        },
+        {
+          "name": "save",
+          "parameterTypes": [
+            "java.lang.Object"
+          ]
+        },
+        {
+          "name": "updateById",
+          "parameterTypes": [
+            "java.lang.Object"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.baomidou.mybatisplus.extension.service.IService"
+    },
+    {
+      "type": "com.baomidou.mybatisplus.extension.service.impl.ServiceImpl"
     },
     {
       "type": "com.baomidou.mybatisplus.extension.spi.SpringCompatibleSet"
@@ -308,6 +418,16 @@
           ]
         },
         {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.maxqiu.test.service.UserService"
+          ]
+        },
+        {
+          "name": "countByAge",
+          "parameterTypes": []
+        },
+        {
           "name": "create",
           "parameterTypes": [
             "com.maxqiu.test.entity.User"
@@ -334,6 +454,35 @@
           "parameterTypes": [
             "java.lang.Long",
             "com.maxqiu.test.entity.User"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.dto.AgeCount",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "getAge",
+          "parameterTypes": []
+        },
+        {
+          "name": "getCount",
+          "parameterTypes": []
+        },
+        {
+          "name": "setAge",
+          "parameterTypes": [
+            "java.lang.Integer"
+          ]
+        },
+        {
+          "name": "setCount",
+          "parameterTypes": [
+            "java.lang.Long"
           ]
         }
       ]
@@ -379,6 +528,33 @@
     },
     {
       "type": "com.maxqiu.test.mapper.UserMapper"
+    },
+    {
+      "type": "com.maxqiu.test.service.UserService"
+    },
+    {
+      "type": "com.maxqiu.test.service.impl.UserServiceImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "countByAge",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.service.impl.UserServiceImpl$$SpringCGLIB$$0",
+      "fields": [
+        {
+          "name": "CGLIB$CALLBACK_FILTER"
+        },
+        {
+          "name": "CGLIB$FACTORY_DATA"
+        }
+      ]
     },
     {
       "type": "com.mysql.cj.conf.url.SingleConnectionUrl",
@@ -634,16 +810,31 @@
       "type": "java.lang.Class[]"
     },
     {
+      "type": "java.lang.CloneNotSupportedException"
+    },
+    {
       "type": "java.lang.Comparable[]"
+    },
+    {
+      "type": "java.lang.Error"
     },
     {
       "type": "java.lang.Module"
     },
     {
-      "type": "java.lang.Object"
+      "type": "java.lang.Object",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.lang.Object[]"
+    },
+    {
+      "type": "java.lang.RuntimeException"
     },
     {
       "type": "java.lang.String"
@@ -659,6 +850,9 @@
     },
     {
       "type": "java.lang.Thread$Builder"
+    },
+    {
+      "type": "java.lang.Throwable"
     },
     {
       "type": "java.lang.WrongThreadException"
@@ -734,6 +928,9 @@
       "type": "java.lang.reflect.Type"
     },
     {
+      "type": "java.lang.reflect.UndeclaredThrowableException"
+    },
+    {
       "type": "java.lang.reflect.WildcardType",
       "methods": [
         {
@@ -748,6 +945,12 @@
     },
     {
       "type": "java.sql.Date"
+    },
+    {
+      "type": "java.sql.Driver"
+    },
+    {
+      "type": "java.sql.DriverManager"
     },
     {
       "type": "java.sql.Statement[]"
@@ -771,7 +974,16 @@
       ]
     },
     {
+      "type": "java.util.Enumeration"
+    },
+    {
       "type": "java.util.EventListener"
+    },
+    {
+      "type": "java.util.HashSet"
+    },
+    {
+      "type": "java.util.List"
     },
     {
       "type": "java.util.Map"
@@ -787,6 +999,9 @@
     },
     {
       "type": "java.util.SequencedCollection"
+    },
+    {
+      "type": "java.util.Set"
     },
     {
       "type": "java.util.concurrent.Callable"
@@ -882,6 +1097,19 @@
       "type": "org.apache.catalina.core.ApplicationContextFacade"
     },
     {
+      "type": "org.apache.catalina.loader.JdbcLeakPrevention",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "clearJdbcDriverRegistrations",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.apache.catalina.startup.Tomcat"
     },
     {
@@ -926,6 +1154,10 @@
         },
         {
           "name": "getLocalPort",
+          "parameterTypes": []
+        },
+        {
+          "name": "getName",
           "parameterTypes": []
         },
         {
@@ -1177,7 +1409,19 @@
       "type": "org.springframework.aop.PointcutAdvisor"
     },
     {
+      "type": "org.springframework.aop.SpringProxy"
+    },
+    {
+      "type": "org.springframework.aop.TargetClassAware"
+    },
+    {
       "type": "org.springframework.aop.framework.AbstractAdvisingBeanPostProcessor"
+    },
+    {
+      "type": "org.springframework.aop.framework.Advised"
+    },
+    {
+      "type": "org.springframework.aop.framework.AopConfigException"
     },
     {
       "type": "org.springframework.aop.framework.AopInfrastructureBean"
@@ -1622,6 +1866,17 @@
       ]
     },
     {
+      "type": "org.springframework.boot.autoconfigure.diagnostics.analyzer.NoSuchBeanDefinitionFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.beans.factory.BeanFactory"
+          ]
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration",
       "methods": [
         {
@@ -1688,6 +1943,15 @@
     },
     {
       "type": "org.springframework.boot.autoconfigure.service.connection.ConnectionDetails"
+    },
+    {
+      "type": "org.springframework.boot.autoconfigure.ssl.BundleContentNotWatchableFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.boot.autoconfigure.ssl.FileWatcher"
@@ -2008,6 +2272,15 @@
       "type": "org.springframework.boot.context.config.ConfigDataNotFoundAction"
     },
     {
+      "type": "org.springframework.boot.context.config.ConfigDataNotFoundFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.context.config.ConfigDataProperties"
     },
     {
@@ -2137,7 +2410,25 @@
       ]
     },
     {
+      "type": "org.springframework.boot.context.properties.IncompatibleConfigurationFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.context.properties.NestedConfigurationProperty"
+    },
+    {
+      "type": "org.springframework.boot.context.properties.NotConstructorBoundInjectionFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.boot.context.properties.bind.Name"
@@ -2147,6 +2438,163 @@
     },
     {
       "type": "org.springframework.boot.convert.DurationUnit"
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.FailureAnalyzers",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.context.ConfigurableApplicationContext"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.AotInitializerNotFoundFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.BeanCurrentlyInCreationFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.beans.factory.BeanFactory"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.BeanDefinitionOverrideFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.BeanNotOfRequiredTypeFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.BindFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.BindValidationFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.InvalidConfigurationPropertyNameFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.InvalidConfigurationPropertyValueFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.core.env.Environment"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.MissingParameterNamesFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.MutuallyExclusiveConfigurationPropertiesFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.core.env.Environment"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.NoSuchMethodFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.NoUniqueBeanDefinitionFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.beans.factory.BeanFactory"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.PatternParseFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.UnboundConfigurationPropertyFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.diagnostics.analyzer.ValidationExceptionFailureAnalyzer"
     },
     {
       "type": "org.springframework.boot.env.PropertiesPropertySourceLoader",
@@ -2512,6 +2960,17 @@
       ]
     },
     {
+      "type": "org.springframework.boot.jdbc.autoconfigure.DataSourceBeanCreationFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.core.env.Environment"
+          ]
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.jdbc.autoconfigure.DataSourceCheckpointRestoreConfiguration"
     },
     {
@@ -2649,6 +3108,15 @@
             "javax.sql.DataSource",
             "org.springframework.beans.factory.ObjectProvider"
           ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.jdbc.autoconfigure.HikariDriverConfigurationFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
         }
       ]
     },
@@ -3000,6 +3468,15 @@
       "type": "org.springframework.boot.tomcat.ConfigurableTomcatWebServerFactory"
     },
     {
+      "type": "org.springframework.boot.tomcat.ConnectorStartFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.tomcat.TomcatWebServerFactory"
     },
     {
@@ -3223,6 +3700,15 @@
       "type": "org.springframework.boot.web.server.ConfigurableWebServerFactory"
     },
     {
+      "type": "org.springframework.boot.web.server.PortInUseFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.web.server.WebServerFactory"
     },
     {
@@ -3275,6 +3761,15 @@
     },
     {
       "type": "org.springframework.boot.web.server.autoconfigure.servlet.ServletWebServerFactoryCustomizer"
+    },
+    {
+      "type": "org.springframework.boot.web.server.context.MissingWebServerFactoryBeanFailureAnalyzer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.boot.web.server.context.ServerPortInfoApplicationContextInitializer",
@@ -3635,6 +4130,15 @@
       "type": "org.springframework.boot.webmvc.error.ErrorController"
     },
     {
+      "type": "org.springframework.cglib.proxy.Dispatcher"
+    },
+    {
+      "type": "org.springframework.cglib.proxy.MethodInterceptor"
+    },
+    {
+      "type": "org.springframework.cglib.proxy.NoOp"
+    },
+    {
       "type": "org.springframework.cloud.commons.util.InetUtils"
     },
     {
@@ -3929,6 +4433,9 @@
       "type": "org.springframework.stereotype.Indexed"
     },
     {
+      "type": "org.springframework.stereotype.Service"
+    },
+    {
       "type": "org.springframework.transaction.ConfigurableTransactionManager"
     },
     {
@@ -3998,6 +4505,9 @@
     },
     {
       "type": "org.springframework.transaction.annotation.TransactionRuntimeHints"
+    },
+    {
+      "type": "org.springframework.transaction.annotation.Transactional"
     },
     {
       "type": "org.springframework.transaction.aspectj.AbstractTransactionAspect"
@@ -4480,6 +4990,22 @@
       ]
     },
     {
+      "type": "sun.reflect.ReflectionFactory",
+      "methods": [
+        {
+          "name": "getReflectionFactory",
+          "parameterTypes": []
+        },
+        {
+          "name": "newConstructorForSerialization",
+          "parameterTypes": [
+            "java.lang.Class",
+            "java.lang.reflect.Constructor"
+          ]
+        }
+      ]
+    },
+    {
       "type": "sun.security.provider.DRBG",
       "methods": [
         {
@@ -4827,6 +5353,21 @@
       "glob": "com/baomidou/mybatisplus/autoconfigure/MybatisPlusLanguageDriverAutoConfiguration.class"
     },
     {
+      "glob": "com/baomidou/mybatisplus/extension/repository/AbstractRepository.class"
+    },
+    {
+      "glob": "com/baomidou/mybatisplus/extension/repository/CrudRepository.class"
+    },
+    {
+      "glob": "com/baomidou/mybatisplus/extension/repository/IRepository.class"
+    },
+    {
+      "glob": "com/baomidou/mybatisplus/extension/service/IService.class"
+    },
+    {
+      "glob": "com/baomidou/mybatisplus/extension/service/impl/ServiceImpl.class"
+    },
+    {
       "glob": "com/maxqiu/test"
     },
     {
@@ -4837,6 +5378,12 @@
     },
     {
       "glob": "com/maxqiu/test/mapper/UserMapper.xml"
+    },
+    {
+      "glob": "com/maxqiu/test/service/UserService.class"
+    },
+    {
+      "glob": "com/maxqiu/test/service/impl/UserServiceImpl.class"
     },
     {
       "glob": "com/mysql/cj/LocalizedErrorMessages.properties"
@@ -5046,6 +5593,9 @@
       "glob": "org/apache/catalina/deploy/LocalStrings_zh_Hans_CN.properties"
     },
     {
+      "glob": "org/apache/catalina/loader/JdbcLeakPrevention.class"
+    },
+    {
       "glob": "org/apache/catalina/loader/LocalStrings.properties"
     },
     {
@@ -5230,6 +5780,9 @@
     },
     {
       "glob": "org/apache/coyote/http11/filters/LocalStrings_zh_Hans_CN.properties"
+    },
+    {
+      "glob": "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd"
     },
     {
       "glob": "org/apache/naming/LocalStrings.properties"
