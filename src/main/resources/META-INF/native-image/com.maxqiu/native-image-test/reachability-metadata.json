@@ -317,6 +317,9 @@
       "type": "com.baomidou.mybatisplus.extension.spring.MybatisPlusApplicationContextAware"
     },
     {
+      "type": "com.couchbase.client.java.Cluster"
+    },
+    {
       "type": "com.fasterxml.jackson.databind.ObjectMapper"
     },
     {
@@ -332,7 +335,19 @@
       "type": "com.fasterxml.jackson.dataformat.yaml.YAMLFactory"
     },
     {
+      "type": "com.github.benmanes.caffeine.cache.Caffeine"
+    },
+    {
+      "type": "com.google.common.base.Optional"
+    },
+    {
       "type": "com.google.gson.Gson"
+    },
+    {
+      "type": "com.hazelcast.core.HazelcastInstance"
+    },
+    {
+      "type": "com.jayway.jsonpath.DocumentContext"
     },
     {
       "type": "com.maxqiu.test.NativeImageTestApplication",
@@ -345,6 +360,63 @@
           "name": "main",
           "parameterTypes": [
             "java.lang.String[]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.config.CacheConfig",
+      "methods": [
+        {
+          "name": "redisCacheConfiguration",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.config.CacheConfig$$SpringCGLIB$$0",
+      "fields": [
+        {
+          "name": "$$beanFactory"
+        },
+        {
+          "name": "CGLIB$CALLBACK_FILTER"
+        },
+        {
+          "name": "CGLIB$FACTORY_DATA"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "CGLIB$SET_STATIC_CALLBACKS",
+          "parameterTypes": [
+            "org.springframework.cglib.proxy.Callback[]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.config.CacheConfig$$SpringCGLIB$$FastClass$$0",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Class"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.config.CacheConfig$$SpringCGLIB$$FastClass$$1",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Class"
           ]
         }
       ]
@@ -404,6 +476,69 @@
           "name": "<init>",
           "parameterTypes": [
             "java.lang.Class"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.controller.CacheController",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.StringRedisTemplate",
+            "com.maxqiu.test.service.CacheService"
+          ]
+        },
+        {
+          "name": "delete",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "evict",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "evictAll",
+          "parameterTypes": []
+        },
+        {
+          "name": "get",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "keys",
+          "parameterTypes": []
+        },
+        {
+          "name": "load",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "put",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "resetHits",
+          "parameterTypes": []
+        },
+        {
+          "name": "set",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.Long"
           ]
         }
       ]
@@ -530,7 +665,61 @@
       "type": "com.maxqiu.test.mapper.UserMapper"
     },
     {
+      "type": "com.maxqiu.test.service.CacheService"
+    },
+    {
       "type": "com.maxqiu.test.service.UserService"
+    },
+    {
+      "type": "com.maxqiu.test.service.impl.CacheServiceImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "evict",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "evictAll",
+          "parameterTypes": []
+        },
+        {
+          "name": "hitCount",
+          "parameterTypes": []
+        },
+        {
+          "name": "load",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "resetHitCount",
+          "parameterTypes": []
+        },
+        {
+          "name": "update",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.maxqiu.test.service.impl.CacheServiceImpl$$SpringCGLIB$$0",
+      "fields": [
+        {
+          "name": "CGLIB$CALLBACK_FILTER"
+        },
+        {
+          "name": "CGLIB$FACTORY_DATA"
+        }
+      ]
     },
     {
       "type": "com.maxqiu.test.service.impl.UserServiceImpl",
@@ -601,7 +790,19 @@
       ]
     },
     {
+      "type": "com.querydsl.core.types.Predicate"
+    },
+    {
       "type": "com.rometools.rome.feed.WireFeed"
+    },
+    {
+      "type": "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
@@ -640,6 +841,170 @@
       "type": "int[]"
     },
     {
+      "type": "io.lettuce.core.ChannelGroupListener"
+    },
+    {
+      "type": "io.lettuce.core.ConnectionBuilder$PlainChannelInitializer"
+    },
+    {
+      "type": "io.lettuce.core.ConnectionEventTrigger"
+    },
+    {
+      "type": "io.lettuce.core.RedisAsyncCommandsImpl"
+    },
+    {
+      "type": "io.lettuce.core.RedisChannelHandler"
+    },
+    {
+      "type": "io.lettuce.core.RedisClient"
+    },
+    {
+      "type": "io.lettuce.core.RedisPublisher$RedisSubscription"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.BaseRedisCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RediSearchCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisAclCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisFunctionCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisGeoCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisHLLCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisHashCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisJsonCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisKeyCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisListCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisScriptingCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisServerCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisSetCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisSortedSetCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisStreamCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisStringCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisTransactionalCommands"
+    },
+    {
+      "type": "io.lettuce.core.api.sync.RedisVectorSetCommands"
+    },
+    {
+      "type": "io.lettuce.core.cluster.api.sync.RedisClusterCommands"
+    },
+    {
+      "type": "io.lettuce.core.event.connection.JfrConnectEvent",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.lettuce.core.event.connection.ConnectEvent"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.lettuce.core.event.connection.JfrConnectedEvent",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.lettuce.core.event.connection.ConnectionEventSupport"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.lettuce.core.event.connection.JfrConnectionActivatedEvent",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.lettuce.core.event.connection.ConnectionEventSupport"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.lettuce.core.event.connection.JfrConnectionCreatedEvent",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "io.lettuce.core.event.connection.ConnectionCreatedEvent"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.lettuce.core.metrics.DefaultCommandLatencyCollector"
+    },
+    {
+      "type": "io.lettuce.core.protocol.AsyncCommand"
+    },
+    {
+      "type": "io.lettuce.core.protocol.CommandEncoder"
+    },
+    {
+      "type": "io.lettuce.core.protocol.CommandHandler"
+    },
+    {
+      "type": "io.lettuce.core.protocol.CommandWrapper"
+    },
+    {
+      "type": "io.lettuce.core.protocol.ConnectionWatchdog"
+    },
+    {
+      "type": "io.lettuce.core.protocol.DefaultEndpoint"
+    },
+    {
+      "type": "io.lettuce.core.protocol.RedisHandshakeHandler"
+    },
+    {
+      "type": "io.lettuce.core.protocol.SharedLock"
+    },
+    {
+      "type": "io.lettuce.core.resource.ClientResources"
+    },
+    {
+      "type": "io.lettuce.core.resource.DefaultClientResources"
+    },
+    {
+      "type": "io.lettuce.core.tracing.MicrometerTracing"
+    },
+    {
+      "type": "io.micrometer.context.ContextRegistry"
+    },
+    {
       "type": "io.micrometer.context.ContextSnapshot"
     },
     {
@@ -652,6 +1017,148 @@
       "type": "io.micrometer.observation.Observation"
     },
     {
+      "type": "io.micrometer.observation.ObservationRegistry"
+    },
+    {
+      "type": "io.netty.buffer.AbstractByteBufAllocator"
+    },
+    {
+      "type": "io.netty.buffer.AdaptivePoolingAllocator$Magazine"
+    },
+    {
+      "type": "io.netty.buffer.AdaptivePoolingAllocator$SizeClassedChunk"
+    },
+    {
+      "type": "io.netty.channel.AbstractChannelHandlerContext"
+    },
+    {
+      "type": "io.netty.channel.ChannelOutboundBuffer"
+    },
+    {
+      "type": "io.netty.channel.DefaultChannelConfig"
+    },
+    {
+      "type": "io.netty.channel.DefaultChannelPipeline"
+    },
+    {
+      "type": "io.netty.channel.DefaultChannelPipeline$HeadContext"
+    },
+    {
+      "type": "io.netty.channel.DefaultChannelPipeline$TailContext"
+    },
+    {
+      "type": "io.netty.channel.epoll.Epoll"
+    },
+    {
+      "type": "io.netty.channel.kqueue.KQueue"
+    },
+    {
+      "type": "io.netty.channel.socket.nio.NioDatagramChannel",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.netty.channel.socket.nio.NioSocketChannel",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "io.netty.handler.codec.dns.DatagramDnsQueryEncoder"
+    },
+    {
+      "type": "io.netty.incubator.channel.uring.IOUring"
+    },
+    {
+      "type": "io.netty.resolver.dns.Cache$Entries"
+    },
+    {
+      "type": "io.netty.resolver.dns.DnsNameResolver$2"
+    },
+    {
+      "type": "io.netty.resolver.dns.DnsNameResolver$3"
+    },
+    {
+      "type": "io.netty.resolver.dns.DnsNameResolver$DnsResponseHandler"
+    },
+    {
+      "type": "io.netty.util.DefaultAttributeMap"
+    },
+    {
+      "type": "io.netty.util.DefaultAttributeMap$DefaultAttribute"
+    },
+    {
+      "type": "io.netty.util.HashedWheelTimer"
+    },
+    {
+      "type": "io.netty.util.HashedWheelTimer$HashedWheelTimeout"
+    },
+    {
+      "type": "io.netty.util.NettyRuntime"
+    },
+    {
+      "type": "io.netty.util.Recycler$DefaultHandle"
+    },
+    {
+      "type": "io.netty.util.ReferenceCountUtil"
+    },
+    {
+      "type": "io.netty.util.ResourceLeakDetector$DefaultResourceLeak"
+    },
+    {
+      "type": "io.netty.util.concurrent.ConcurrentSkipListIntObjMultimap"
+    },
+    {
+      "type": "io.netty.util.concurrent.ConcurrentSkipListIntObjMultimap$Index"
+    },
+    {
+      "type": "io.netty.util.concurrent.ConcurrentSkipListIntObjMultimap$Node"
+    },
+    {
+      "type": "io.netty.util.concurrent.DefaultPromise"
+    },
+    {
+      "type": "io.netty.util.concurrent.MpscIntQueue$MpscAtomicIntegerArrayQueue"
+    },
+    {
+      "type": "io.netty.util.concurrent.SingleThreadEventExecutor"
+    },
+    {
+      "type": "io.netty.util.internal.CleanerJava25$CleanableDirectBufferImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.AutoCloseable",
+            "java.nio.ByteBuffer",
+            "long"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "io.netty.util.internal.shaded.org.jctools.queues.atomic.BaseMpscLinkedAtomicArrayQueueColdProducerFields"
+    },
+    {
+      "type": "io.netty.util.internal.shaded.org.jctools.queues.atomic.BaseMpscLinkedAtomicArrayQueueConsumerFields"
+    },
+    {
+      "type": "io.netty.util.internal.shaded.org.jctools.queues.atomic.BaseMpscLinkedAtomicArrayQueueProducerFields"
+    },
+    {
+      "type": "io.netty.util.internal.shaded.org.jctools.queues.atomic.MpmcAtomicArrayQueueConsumerIndexField"
+    },
+    {
+      "type": "io.netty.util.internal.shaded.org.jctools.queues.atomic.MpmcAtomicArrayQueueProducerIndexField"
+    },
+    {
       "type": "io.opentelemetry.api.GlobalOpenTelemetry"
     },
     {
@@ -662,6 +1169,9 @@
     },
     {
       "type": "io.smallrye.mutiny.Multi"
+    },
+    {
+      "type": "io.vavr.control.Option"
     },
     {
       "type": "io.vavr.control.Try"
@@ -793,6 +1303,10 @@
       "type": "java.lang.Class",
       "methods": [
         {
+          "name": "getModule",
+          "parameterTypes": []
+        },
+        {
           "name": "isRecord",
           "parameterTypes": []
         }
@@ -819,7 +1333,13 @@
       "type": "java.lang.Error"
     },
     {
-      "type": "java.lang.Module"
+      "type": "java.lang.Module",
+      "methods": [
+        {
+          "name": "isNativeAccessEnabled",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.lang.Object",
@@ -834,6 +1354,22 @@
       "type": "java.lang.Object[]"
     },
     {
+      "type": "java.lang.ProcessHandle",
+      "methods": [
+        {
+          "name": "current",
+          "parameterTypes": []
+        },
+        {
+          "name": "pid",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.lang.Record"
+    },
+    {
       "type": "java.lang.RuntimeException"
     },
     {
@@ -846,7 +1382,13 @@
       "type": "java.lang.System"
     },
     {
-      "type": "java.lang.Thread"
+      "type": "java.lang.Thread",
+      "methods": [
+        {
+          "name": "isVirtual",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.lang.Thread$Builder"
@@ -885,8 +1427,56 @@
       "type": "java.lang.constant.ConstantDesc[]"
     },
     {
+      "type": "java.lang.foreign.Arena",
+      "methods": [
+        {
+          "name": "allocate",
+          "parameterTypes": [
+            "long"
+          ]
+        },
+        {
+          "name": "ofShared",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.lang.foreign.MemorySegment",
+      "methods": [
+        {
+          "name": "address",
+          "parameterTypes": []
+        },
+        {
+          "name": "asByteBuffer",
+          "parameterTypes": []
+        },
+        {
+          "name": "ofBuffer",
+          "parameterTypes": [
+            "java.nio.Buffer"
+          ]
+        }
+      ]
+    },
+    {
       "type": "java.lang.invoke.MethodHandles",
       "methods": [
+        {
+          "name": "byteArrayViewVarHandle",
+          "parameterTypes": [
+            "java.lang.Class",
+            "java.nio.ByteOrder"
+          ]
+        },
+        {
+          "name": "byteBufferViewVarHandle",
+          "parameterTypes": [
+            "java.lang.Class",
+            "java.nio.ByteOrder"
+          ]
+        },
         {
           "name": "privateLookupIn",
           "parameterTypes": [
@@ -897,7 +1487,47 @@
       ]
     },
     {
+      "type": "java.lang.invoke.MethodHandles$Lookup",
+      "methods": [
+        {
+          "name": "findVarHandle",
+          "parameterTypes": [
+            "java.lang.Class",
+            "java.lang.String",
+            "java.lang.Class"
+          ]
+        }
+      ]
+    },
+    {
       "type": "java.lang.invoke.TypeDescriptor$OfField"
+    },
+    {
+      "type": "java.lang.invoke.VarHandle",
+      "methods": [
+        {
+          "name": "acquireFence",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.lang.management.ManagementFactory",
+      "methods": [
+        {
+          "name": "getRuntimeMXBean",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "java.lang.management.RuntimeMXBean",
+      "methods": [
+        {
+          "name": "getInputArguments",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "java.lang.reflect.AccessibleObject"
@@ -944,6 +1574,45 @@
       ]
     },
     {
+      "type": "java.nio.ByteBuffer",
+      "methods": [
+        {
+          "name": "alignedSlice",
+          "parameterTypes": [
+            "int"
+          ]
+        },
+        {
+          "name": "put",
+          "parameterTypes": [
+            "int",
+            "java.nio.ByteBuffer",
+            "int",
+            "int"
+          ]
+        },
+        {
+          "name": "put",
+          "parameterTypes": [
+            "int",
+            "byte[]",
+            "int",
+            "int"
+          ]
+        },
+        {
+          "name": "slice",
+          "parameterTypes": [
+            "int",
+            "int"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "java.nio.channels.spi.SelectorProvider"
+    },
+    {
       "type": "java.sql.Date"
     },
     {
@@ -963,6 +1632,9 @@
     },
     {
       "type": "java.text.ListFormat"
+    },
+    {
+      "type": "java.time.DurationEditor"
     },
     {
       "type": "java.util.ArrayList",
@@ -1025,6 +1697,12 @@
       ]
     },
     {
+      "type": "javax.cache.Cache"
+    },
+    {
+      "type": "javax.cache.Caching"
+    },
+    {
       "type": "javax.money.MonetaryAmount"
     },
     {
@@ -1058,6 +1736,9 @@
       "type": "jdk.internal.misc.Unsafe"
     },
     {
+      "type": "jdk.jfr.Event"
+    },
+    {
       "type": "kotlin.Metadata"
     },
     {
@@ -1089,6 +1770,18 @@
     },
     {
       "type": "oracle.ucp.jdbc.PoolDataSourceImpl"
+    },
+    {
+      "type": "org.HdrHistogram$Histogram"
+    },
+    {
+      "type": "org.HdrHistogram.Histogram"
+    },
+    {
+      "type": "org.LatencyUtils$PauseDetector"
+    },
+    {
+      "type": "org.LatencyUtils.PauseDetector"
     },
     {
       "type": "org.aopalliance.intercept.MethodInterceptor"
@@ -1144,6 +1837,12 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.apache.commons.pool2.ObjectPool"
+    },
+    {
+      "type": "org.apache.commons.pool2.impl.GenericObjectPool"
     },
     {
       "type": "org.apache.coyote.AbstractProtocol",
@@ -1334,10 +2033,16 @@
       "type": "org.aspectj.weaver.Advice"
     },
     {
+      "type": "org.cache2k.Cache2kBuilder"
+    },
+    {
       "type": "org.crac.Core"
     },
     {
       "type": "org.crac.Resource"
+    },
+    {
+      "type": "org.eclipse.collections.api.list.ImmutableList"
     },
     {
       "type": "org.eclipse.core.runtime.FileLocator"
@@ -1358,7 +2063,16 @@
       "type": "org.hsqldb.jdbc.JDBCDriver"
     },
     {
+      "type": "org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager"
+    },
+    {
       "type": "org.jboss.logging.Logger"
+    },
+    {
+      "type": "org.jmolecules.spring.IdentifierToPrimitivesConverter"
+    },
+    {
+      "type": "org.jspecify.annotations.NullUnmarked"
     },
     {
       "type": "org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver"
@@ -1513,6 +2227,9 @@
       "type": "org.springframework.beans.factory.InitializingBean"
     },
     {
+      "type": "org.springframework.beans.factory.SmartInitializingSingleton"
+    },
+    {
       "type": "org.springframework.beans.factory.annotation.Autowired"
     },
     {
@@ -1562,6 +2279,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.boot.LazyInitializationExcludeFilter"
     },
     {
       "type": "org.springframework.boot.SpringBootConfiguration"
@@ -1692,6 +2412,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.boot.autoconfigure.cache.CacheTypeEditor"
     },
     {
       "type": "org.springframework.boot.autoconfigure.condition.ConditionEvaluationReportAutoConfigurationImportListener",
@@ -2207,6 +2930,90 @@
       ]
     },
     {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "cacheAutoConfigurationValidator",
+          "parameterTypes": [
+            "org.springframework.boot.cache.autoconfigure.CacheProperties",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        },
+        {
+          "name": "cacheManagerCustomizers",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheAutoConfiguration$CacheConfigurationImportSelector",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheAutoConfiguration$CacheManagerEntityManagerFactoryDependsOnConfiguration"
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheAutoConfiguration$CacheManagerValidator"
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheManagerCustomizers"
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.CacheProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setType",
+          "parameterTypes": [
+            "org.springframework.boot.autoconfigure.cache.CacheType"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.cache.autoconfigure.RedisCacheConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "cacheManager",
+          "parameterTypes": [
+            "org.springframework.boot.cache.autoconfigure.CacheProperties",
+            "org.springframework.boot.cache.autoconfigure.CacheManagerCustomizers",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.data.redis.connection.RedisConnectionFactory",
+            "org.springframework.core.io.ResourceLoader"
+          ]
+        }
+      ]
+    },
+    {
       "type": "org.springframework.boot.cloud.CloudFoundryVcapEnvironmentPostProcessor",
       "methods": [
         {
@@ -2438,6 +3245,181 @@
     },
     {
       "type": "org.springframework.boot.convert.DurationUnit"
+    },
+    {
+      "type": "org.springframework.boot.data.autoconfigure.web.DataWebAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.boot.data.autoconfigure.web.DataWebProperties"
+          ]
+        },
+        {
+          "name": "pageableCustomizer",
+          "parameterTypes": []
+        },
+        {
+          "name": "sortCustomizer",
+          "parameterTypes": []
+        },
+        {
+          "name": "springDataWebSettings",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.autoconfigure.web.DataWebProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "redisConnectionDetails",
+          "parameterTypes": [
+            "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        },
+        {
+          "name": "redisTemplate",
+          "parameterTypes": [
+            "org.springframework.data.redis.connection.RedisConnectionFactory"
+          ]
+        },
+        {
+          "name": "stringRedisTemplate",
+          "parameterTypes": [
+            "org.springframework.data.redis.connection.RedisConnectionFactory"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisConnectionConfiguration"
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisConnectionDetails"
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setHost",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "setPassword",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "setPort",
+          "parameterTypes": [
+            "int"
+          ]
+        },
+        {
+          "name": "setTimeout",
+          "parameterTypes": [
+            "java.time.Duration"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisReactiveAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "reactiveRedisTemplate",
+          "parameterTypes": [
+            "org.springframework.data.redis.connection.ReactiveRedisConnectionFactory",
+            "org.springframework.core.io.ResourceLoader"
+          ]
+        },
+        {
+          "name": "reactiveStringRedisTemplate",
+          "parameterTypes": [
+            "org.springframework.data.redis.connection.ReactiveRedisConnectionFactory"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisRepositoriesAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.DataRedisRepositoriesRegistrar",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.JedisConnectionConfiguration"
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.LettuceConnectionConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.boot.data.redis.autoconfigure.DataRedisProperties",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.boot.data.redis.autoconfigure.DataRedisConnectionDetails"
+          ]
+        },
+        {
+          "name": "lettuceClientResources",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        },
+        {
+          "name": "redisConnectionFactory",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "io.lettuce.core.resource.ClientResources"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.data.redis.autoconfigure.PropertiesDataRedisConnectionDetails"
     },
     {
       "type": "org.springframework.boot.diagnostics.FailureAnalyzers",
@@ -3210,6 +4192,9 @@
       "type": "org.springframework.boot.jdbc.metadata.DataSourcePoolMetadataProvider"
     },
     {
+      "type": "org.springframework.boot.jpa.autoconfigure.EntityManagerFactoryDependsOnPostProcessor"
+    },
+    {
       "type": "org.springframework.boot.loader.launch.JarLauncher",
       "jniAccessible": true,
       "methods": [
@@ -3259,6 +4244,30 @@
     },
     {
       "type": "org.springframework.boot.micrometer.observation.autoconfigure.ObservationProperties"
+    },
+    {
+      "type": "org.springframework.boot.netty.autoconfigure.NettyAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.boot.netty.autoconfigure.NettyProperties"
+          ]
+        },
+        {
+          "name": "nettyAutoConfigurationLazyInitializationExcludeFilter",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.boot.netty.autoconfigure.NettyProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "org.springframework.boot.persistence.autoconfigure.PersistenceExceptionTranslationAutoConfiguration",
@@ -4130,6 +5139,104 @@
       "type": "org.springframework.boot.webmvc.error.ErrorController"
     },
     {
+      "type": "org.springframework.cache.Cache"
+    },
+    {
+      "type": "org.springframework.cache.CacheManager"
+    },
+    {
+      "type": "org.springframework.cache.annotation.AbstractCachingConfiguration",
+      "methods": [
+        {
+          "name": "setConfigurers",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.cache.annotation.AnnotationCacheOperationSource"
+    },
+    {
+      "type": "org.springframework.cache.annotation.CacheEvict"
+    },
+    {
+      "type": "org.springframework.cache.annotation.CachePut"
+    },
+    {
+      "type": "org.springframework.cache.annotation.Cacheable"
+    },
+    {
+      "type": "org.springframework.cache.annotation.CachingConfigurationSelector",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.cache.annotation.EnableCaching"
+    },
+    {
+      "type": "org.springframework.cache.annotation.ProxyCachingConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "cacheAdvisor",
+          "parameterTypes": [
+            "org.springframework.cache.interceptor.CacheOperationSource",
+            "org.springframework.cache.interceptor.CacheInterceptor"
+          ]
+        },
+        {
+          "name": "cacheInterceptor",
+          "parameterTypes": [
+            "org.springframework.cache.interceptor.CacheOperationSource"
+          ]
+        },
+        {
+          "name": "cacheOperationSource",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.cache.interceptor.AbstractCacheInvoker"
+    },
+    {
+      "type": "org.springframework.cache.interceptor.AbstractFallbackCacheOperationSource"
+    },
+    {
+      "type": "org.springframework.cache.interceptor.BeanFactoryCacheOperationSourceAdvisor"
+    },
+    {
+      "type": "org.springframework.cache.interceptor.CacheAspectSupport"
+    },
+    {
+      "type": "org.springframework.cache.interceptor.CacheInterceptor"
+    },
+    {
+      "type": "org.springframework.cache.interceptor.CacheOperationSource"
+    },
+    {
+      "type": "org.springframework.cache.jcache.config.ProxyJCacheConfiguration"
+    },
+    {
+      "type": "org.springframework.cache.support.AbstractCacheManager"
+    },
+    {
+      "type": "org.springframework.cache.support.NullValue",
+      "serializable": true
+    },
+    {
+      "type": "org.springframework.cache.transaction.AbstractTransactionSupportingCacheManager"
+    },
+    {
       "type": "org.springframework.cglib.proxy.Dispatcher"
     },
     {
@@ -4337,7 +5444,443 @@
       "type": "org.springframework.dao.support.DaoSupport"
     },
     {
+      "type": "org.springframework.dao.support.PersistenceExceptionTranslator"
+    },
+    {
+      "type": "org.springframework.data.convert.CustomConversions"
+    },
+    {
+      "type": "org.springframework.data.convert.EntityConverter"
+    },
+    {
+      "type": "org.springframework.data.convert.EntityReader"
+    },
+    {
+      "type": "org.springframework.data.convert.EntityWriter"
+    },
+    {
+      "type": "org.springframework.data.convert.ReadingConverter"
+    },
+    {
+      "type": "org.springframework.data.convert.WritingConverter"
+    },
+    {
+      "type": "org.springframework.data.core.CustomCollections$EclipseCollections",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.core.CustomCollections$VavrCollections",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.core.CustomCollections.EclipseCollections"
+    },
+    {
+      "type": "org.springframework.data.core.CustomCollections.VavrCollections"
+    },
+    {
+      "type": "org.springframework.data.domain.Unpaged"
+    },
+    {
+      "type": "org.springframework.data.geo.GeoJacksonModule"
+    },
+    {
+      "type": "org.springframework.data.keyvalue.core.AbstractKeyValueAdapter"
+    },
+    {
+      "type": "org.springframework.data.keyvalue.core.KeyValueAdapter"
+    },
+    {
+      "type": "org.springframework.data.keyvalue.core.KeyValueOperations"
+    },
+    {
+      "type": "org.springframework.data.keyvalue.core.KeyValueTemplate"
+    },
+    {
+      "type": "org.springframework.data.keyvalue.core.mapping.context.KeyValueMappingContext"
+    },
+    {
+      "type": "org.springframework.data.keyvalue.repository.config.QueryCreatorType"
+    },
+    {
+      "type": "org.springframework.data.mapping.context.AbstractMappingContext"
+    },
+    {
+      "type": "org.springframework.data.mapping.context.MappingContext"
+    },
+    {
+      "type": "org.springframework.data.redis.cache.RedisCacheConfiguration"
+    },
+    {
+      "type": "org.springframework.data.redis.cache.RedisCacheManager"
+    },
+    {
+      "type": "org.springframework.data.redis.connection.ReactiveRedisConnectionFactory"
+    },
+    {
+      "type": "org.springframework.data.redis.connection.RedisConnectionFactory"
+    },
+    {
+      "type": "org.springframework.data.redis.connection.jedis.JedisConnection"
+    },
+    {
+      "type": "org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"
+    },
+    {
+      "type": "org.springframework.data.redis.connection.lettuce.LettuceReactiveRedisConnection$AsyncConnect"
+    },
+    {
+      "type": "org.springframework.data.redis.core.ReactiveRedisOperations"
+    },
+    {
+      "type": "org.springframework.data.redis.core.ReactiveRedisTemplate"
+    },
+    {
+      "type": "org.springframework.data.redis.core.ReactiveStringRedisTemplate"
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisAccessor"
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisKeyValueAdapter",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.RedisOperations",
+            "org.springframework.data.redis.core.convert.RedisConverter"
+          ]
+        },
+        {
+          "name": "setEnableKeyspaceEvents",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.RedisKeyValueAdapter$EnableKeyspaceEvents"
+          ]
+        },
+        {
+          "name": "setKeyspaceNotificationsConfigParameter",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "setShadowCopy",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.RedisKeyValueAdapter$ShadowCopy"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisKeyValueAdapter$EnableKeyspaceEvents"
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisKeyValueAdapter$ShadowCopy"
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisKeyValueTemplate",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.RedisKeyValueAdapter",
+            "org.springframework.data.redis.core.mapping.RedisMappingContext"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisOperations"
+    },
+    {
+      "type": "org.springframework.data.redis.core.RedisTemplate"
+    },
+    {
+      "type": "org.springframework.data.redis.core.StringRedisTemplate"
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.KeyspaceConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.MappingConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.index.ConfigurableIndexDefinitionProvider",
+            "org.springframework.data.redis.core.convert.KeyspaceConfiguration"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.MappingRedisConverter",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.mapping.RedisMappingContext"
+          ]
+        },
+        {
+          "name": "setCustomConversions",
+          "parameterTypes": [
+            "org.springframework.data.convert.CustomConversions"
+          ]
+        },
+        {
+          "name": "setReferenceResolver",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.convert.ReferenceResolver"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.RedisConverter"
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.RedisCustomConversions",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.ReferenceResolver"
+    },
+    {
+      "type": "org.springframework.data.redis.core.convert.ReferenceResolverImpl",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.RedisOperations"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.index.ConfigurableIndexDefinitionProvider"
+    },
+    {
+      "type": "org.springframework.data.redis.core.index.IndexConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.index.IndexDefinitionProvider"
+    },
+    {
+      "type": "org.springframework.data.redis.core.index.IndexDefinitionRegistry"
+    },
+    {
+      "type": "org.springframework.data.redis.core.mapping.RedisMappingContext",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.data.redis.core.convert.MappingConfiguration"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.redis.core.mapping.RedisMappingContextEditor"
+    },
+    {
+      "type": "org.springframework.data.redis.repository.configuration.EnableRedisRepositories"
+    },
+    {
+      "type": "org.springframework.data.redis.repository.support.RedisRepositoryFactoryBean"
+    },
+    {
+      "type": "org.springframework.data.repository.Repository"
+    },
+    {
+      "type": "org.springframework.data.repository.config.RepositoryRegistrationAotProcessor",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setConfigMap",
+          "parameterTypes": [
+            "java.util.Map"
+          ]
+        }
+      ]
+    },
+    {
       "type": "org.springframework.data.rest.webmvc.alps.AlpsJacksonJsonHttpMessageConverter"
+    },
+    {
+      "type": "org.springframework.data.util.KotlinBeanInfoFactory",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.OffsetScrollPositionArgumentResolver"
+    },
+    {
+      "type": "org.springframework.data.web.OffsetScrollPositionHandlerMethodArgumentResolver"
+    },
+    {
+      "type": "org.springframework.data.web.OffsetScrollPositionHandlerMethodArgumentResolverSupport"
+    },
+    {
+      "type": "org.springframework.data.web.PageableArgumentResolver"
+    },
+    {
+      "type": "org.springframework.data.web.PageableHandlerMethodArgumentResolver"
+    },
+    {
+      "type": "org.springframework.data.web.PageableHandlerMethodArgumentResolverSupport"
+    },
+    {
+      "type": "org.springframework.data.web.SortArgumentResolver"
+    },
+    {
+      "type": "org.springframework.data.web.SortHandlerMethodArgumentResolver"
+    },
+    {
+      "type": "org.springframework.data.web.SortHandlerMethodArgumentResolverSupport"
+    },
+    {
+      "type": "org.springframework.data.web.config.EnableSpringDataWebSupport"
+    },
+    {
+      "type": "org.springframework.data.web.config.EnableSpringDataWebSupport$QuerydslActivator",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.config.EnableSpringDataWebSupport$SpringDataWebConfigurationImportSelector",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.config.EnableSpringDataWebSupport$SpringDataWebSettingsRegistrar",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer"
+    },
+    {
+      "type": "org.springframework.data.web.config.ProjectingArgumentResolverRegistrar",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "projectingArgumentResolverBeanPostProcessor",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectFactory"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.config.ProjectingArgumentResolverRegistrar$ProjectingArgumentResolverBeanPostProcessor"
+    },
+    {
+      "type": "org.springframework.data.web.config.SortHandlerMethodArgumentResolverCustomizer"
+    },
+    {
+      "type": "org.springframework.data.web.config.SpringDataJackson3Configuration",
+      "fields": [
+        {
+          "name": "settings"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "jackson3GeoModule",
+          "parameterTypes": []
+        },
+        {
+          "name": "jackson3pageModule",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.config.SpringDataJackson3Configuration$PageModule"
+    },
+    {
+      "type": "org.springframework.data.web.config.SpringDataJackson3Modules"
+    },
+    {
+      "type": "org.springframework.data.web.config.SpringDataWebConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.context.ApplicationContext",
+            "org.springframework.beans.factory.ObjectFactory"
+          ]
+        },
+        {
+          "name": "offsetResolver",
+          "parameterTypes": []
+        },
+        {
+          "name": "pageableResolver",
+          "parameterTypes": []
+        },
+        {
+          "name": "sortResolver",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.data.web.config.SpringDataWebSettings"
     },
     {
       "type": "org.springframework.format.FormatterRegistry"
@@ -4347,6 +5890,9 @@
     },
     {
       "type": "org.springframework.format.support.FormattingConversionService"
+    },
+    {
+      "type": "org.springframework.hateoas.Link"
     },
     {
       "type": "org.springframework.hateoas.server.mvc.TypeConstrainedJacksonJsonHttpMessageConverter"
@@ -4404,6 +5950,9 @@
     },
     {
       "type": "org.springframework.messaging.MessagingException"
+    },
+    {
+      "type": "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
     },
     {
       "type": "org.springframework.scheduling.SchedulingTaskExecutor"
@@ -4603,6 +6152,9 @@
       "type": "org.springframework.web.bind.annotation.RequestMethod[]"
     },
     {
+      "type": "org.springframework.web.bind.annotation.RequestParam"
+    },
+    {
       "type": "org.springframework.web.bind.annotation.ResponseBody"
     },
     {
@@ -4646,6 +6198,9 @@
     },
     {
       "type": "org.springframework.web.method.support.CompositeUriComponentsContributor"
+    },
+    {
+      "type": "org.springframework.web.method.support.HandlerMethodArgumentResolver"
     },
     {
       "type": "org.springframework.web.method.support.UriComponentsContributor"
@@ -4928,10 +6483,88 @@
       "type": "org.webjars.WebJarVersionLocator"
     },
     {
+      "type": "org.xmlbeam.XBProjector"
+    },
+    {
       "type": "org.yaml.snakeyaml.Yaml"
     },
     {
+      "type": "reactor.core.publisher.FlatMapTracker"
+    },
+    {
       "type": "reactor.core.publisher.Flux"
+    },
+    {
+      "type": "reactor.core.publisher.FluxArray$ArraySubscription"
+    },
+    {
+      "type": "reactor.core.publisher.FluxConcatMapNoPrefetch$FluxConcatMapNoPrefetchSubscriber"
+    },
+    {
+      "type": "reactor.core.publisher.FluxFlatMap$FlatMapInner"
+    },
+    {
+      "type": "reactor.core.publisher.FluxFlatMap$FlatMapMain"
+    },
+    {
+      "type": "reactor.core.publisher.FluxIterable$IterableSubscription"
+    },
+    {
+      "type": "reactor.core.publisher.FluxUsingWhen$UsingWhenSubscriber"
+    },
+    {
+      "type": "reactor.core.publisher.Hooks"
+    },
+    {
+      "type": "reactor.core.publisher.LambdaMonoSubscriber"
+    },
+    {
+      "type": "reactor.core.publisher.MonoCacheTime"
+    },
+    {
+      "type": "reactor.core.publisher.MonoCallable$MonoCallableSubscription"
+    },
+    {
+      "type": "reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain"
+    },
+    {
+      "type": "reactor.core.publisher.MonoNext$NextSubscriber"
+    },
+    {
+      "type": "reactor.core.publisher.Operators$BaseFluxToMonoOperator"
+    },
+    {
+      "type": "reactor.core.publisher.Operators$MultiSubscriptionSubscriber"
+    },
+    {
+      "type": "reactor.core.publisher.Operators$ScalarSubscription"
+    },
+    {
+      "type": "reactor.core.publisher.SinkManyBestEffort"
+    },
+    {
+      "type": "reactor.core.publisher.SinksSpecs$AbstractSerializedSink"
+    },
+    {
+      "type": "reactor.core.scheduler.DelegateServiceScheduler"
+    },
+    {
+      "type": "reactor.util.concurrent.Queues",
+      "methods": [
+        {
+          "name": "unbounded",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "reactor.util.concurrent.SpscLinkedArrayQueue"
+    },
+    {
+      "type": "redis.clients.jedis.Jedis"
+    },
+    {
+      "type": "scala.Option"
     },
     {
       "type": "sun.launcher.LauncherHelper",
@@ -4988,6 +6621,9 @@
           "name": "theUnsafe"
         }
       ]
+    },
+    {
+      "type": "sun.nio.ch.SelectorImpl"
     },
     {
       "type": "sun.reflect.ReflectionFactory",
@@ -5092,6 +6728,9 @@
       "type": "tools.jackson.databind.ser.Serializers[]"
     },
     {
+      "type": "tools.jackson.databind.ser.ValueSerializerModifier[]"
+    },
+    {
       "type": "tools.jackson.dataformat.cbor.CBORMapper"
     },
     {
@@ -5107,6 +6746,14 @@
       "type": {
         "proxy": [
           "com.maxqiu.test.mapper.UserMapper"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "io.lettuce.core.api.sync.RedisCommands",
+          "io.lettuce.core.cluster.api.sync.RedisClusterCommands"
         ]
       }
     },
@@ -5161,6 +6808,27 @@
     {
       "type": {
         "proxy": [
+          "org.springframework.cache.annotation.CacheEvict"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.springframework.cache.annotation.CachePut"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.springframework.cache.annotation.Cacheable"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
           "org.springframework.web.bind.annotation.PathVariable"
         ]
       }
@@ -5170,6 +6838,23 @@
         "proxy": [
           "org.springframework.web.bind.annotation.RequestMapping"
         ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
+          "org.springframework.web.bind.annotation.RequestParam"
+        ]
+      }
+    },
+    {
+      "type": {
+        "lambda": {
+          "declaringClass": "org.springframework.boot.LazyInitializationExcludeFilter",
+          "interfaces": [
+            "org.springframework.boot.LazyInitializationExcludeFilter"
+          ]
+        }
       }
     },
     {
@@ -5188,6 +6873,26 @@
           "declaringClass": "org.springframework.boot.autoconfigure.task.TaskExecutorConfigurations$BootstrapExecutorConfiguration",
           "interfaces": [
             "org.springframework.beans.factory.config.BeanFactoryPostProcessor"
+          ]
+        }
+      }
+    },
+    {
+      "type": {
+        "lambda": {
+          "declaringClass": "org.springframework.boot.data.autoconfigure.web.DataWebAutoConfiguration",
+          "interfaces": [
+            "org.springframework.data.web.config.PageableHandlerMethodArgumentResolverCustomizer"
+          ]
+        }
+      }
+    },
+    {
+      "type": {
+        "lambda": {
+          "declaringClass": "org.springframework.boot.data.autoconfigure.web.DataWebAutoConfiguration",
+          "interfaces": [
+            "org.springframework.data.web.config.SortHandlerMethodArgumentResolverCustomizer"
           ]
         }
       }
@@ -5252,6 +6957,9 @@
     },
     {
       "glob": "META-INF/services/javax.xml.parsers.DocumentBuilderFactory"
+    },
+    {
+      "glob": "META-INF/services/javax.xml.transform.TransformerFactory"
     },
     {
       "glob": "META-INF/services/javax.xml.xpath.XPathFactory"
@@ -5353,6 +7061,12 @@
       "glob": "com/baomidou/mybatisplus/autoconfigure/MybatisPlusLanguageDriverAutoConfiguration.class"
     },
     {
+      "glob": "com/baomidou/mybatisplus/core/mapper/BaseMapper.class"
+    },
+    {
+      "glob": "com/baomidou/mybatisplus/core/mapper/Mapper.class"
+    },
+    {
       "glob": "com/baomidou/mybatisplus/extension/repository/AbstractRepository.class"
     },
     {
@@ -5371,7 +7085,13 @@
       "glob": "com/maxqiu/test"
     },
     {
+      "glob": "com/maxqiu/test/config/CacheConfig.class"
+    },
+    {
       "glob": "com/maxqiu/test/config/MyBatisConfig.class"
+    },
+    {
+      "glob": "com/maxqiu/test/controller/CacheController.class"
     },
     {
       "glob": "com/maxqiu/test/controller/UserController.class"
@@ -5380,7 +7100,13 @@
       "glob": "com/maxqiu/test/mapper/UserMapper.xml"
     },
     {
+      "glob": "com/maxqiu/test/service/CacheService.class"
+    },
+    {
       "glob": "com/maxqiu/test/service/UserService.class"
+    },
+    {
+      "glob": "com/maxqiu/test/service/impl/CacheServiceImpl.class"
     },
     {
       "glob": "com/maxqiu/test/service/impl/UserServiceImpl.class"
@@ -5983,10 +7709,16 @@
       "glob": "org/apache/tomcat/websocket/server/LocalStrings_zh_Hans_CN.properties"
     },
     {
+      "glob": "org/springframework/aot/hint/RuntimeHintsRegistrar.class"
+    },
+    {
       "glob": "org/springframework/aot/hint/annotation/Reflective.class"
     },
     {
       "glob": "org/springframework/beans/factory/Aware.class"
+    },
+    {
+      "glob": "org/springframework/beans/factory/BeanClassLoaderAware.class"
     },
     {
       "glob": "org/springframework/beans/factory/BeanFactoryAware.class"
@@ -6061,6 +7793,9 @@
       "glob": "org/springframework/boot/autoconfigure/context/PropertyPlaceholderAutoConfiguration.class"
     },
     {
+      "glob": "org/springframework/boot/autoconfigure/data/AbstractRepositoryConfigurationSourceSupport.class"
+    },
+    {
       "glob": "org/springframework/boot/autoconfigure/info/ProjectInfoAutoConfiguration$GitResourceAvailableCondition.class"
     },
     {
@@ -6115,16 +7850,94 @@
       "glob": "org/springframework/boot/autoconfigure/task/TaskSchedulingConfigurations$ThreadPoolTaskSchedulerBuilderConfiguration.class"
     },
     {
+      "glob": "org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration$CacheConfigurationImportSelector.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration$CacheManagerEntityManagerFactoryDependsOnConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration$CacheManagerEntityManagerFactoryDependsOnPostProcessor.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration$CacheManagerValidator.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/CacheAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/GenericCacheConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/NoOpCacheConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/RedisCacheConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/cache/autoconfigure/SimpleCacheConfiguration.class"
+    },
+    {
       "glob": "org/springframework/boot/context/properties/EnableConfigurationProperties.class"
     },
     {
       "glob": "org/springframework/boot/context/properties/EnableConfigurationPropertiesRegistrar.class"
     },
     {
+      "glob": "org/springframework/boot/data/autoconfigure/web/DataWebAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/couchbase/autoconfigure$DataCouchbaseAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/couchbase/autoconfigure/DataCouchbaseAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/DataRedisAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/DataRedisConnectionConfiguration$Mode.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/DataRedisConnectionConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/DataRedisReactiveAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/DataRedisRepositoriesAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/DataRedisRepositoriesRegistrar.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/JedisConnectionConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/LettuceConnectionConfiguration$PoolBuilderFactory.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/LettuceConnectionConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/data/redis/autoconfigure/observation/LettuceObservationAutoConfiguration.class"
+    },
+    {
       "glob": "org/springframework/boot/gson/autoconfigure$GsonAutoConfiguration.class"
     },
     {
       "glob": "org/springframework/boot/gson/autoconfigure/GsonAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/hazelcast/autoconfigure$HazelcastAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/hazelcast/autoconfigure/HazelcastAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/hibernate/autoconfigure$HibernateJpaAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/hibernate/autoconfigure/HibernateJpaAutoConfiguration.class"
     },
     {
       "glob": "org/springframework/boot/http/converter/autoconfigure/GsonHttpMessageConvertersConfiguration.class"
@@ -6319,6 +8132,15 @@
       "glob": "org/springframework/boot/kotlinx/serialization/json/autoconfigure/KotlinxSerializationJsonAutoConfiguration.class"
     },
     {
+      "glob": "org/springframework/boot/micrometer/observation/autoconfigure$ObservationAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/micrometer/observation/autoconfigure/ObservationAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/boot/netty/autoconfigure/NettyAutoConfiguration.class"
+    },
+    {
       "glob": "org/springframework/boot/persistence/autoconfigure/PersistenceExceptionTranslationAutoConfiguration.class"
     },
     {
@@ -6439,6 +8261,15 @@
       "glob": "org/springframework/boot/webmvc/autoconfigure/error/ErrorMvcAutoConfiguration.class"
     },
     {
+      "glob": "org/springframework/cache/annotation/AbstractCachingConfiguration$CachingConfigurerSupplier.class"
+    },
+    {
+      "glob": "org/springframework/cache/annotation/AbstractCachingConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/cache/annotation/ProxyCachingConfiguration.class"
+    },
+    {
       "glob": "org/springframework/context/ApplicationContextAware.class"
     },
     {
@@ -6479,6 +8310,39 @@
     },
     {
       "glob": "org/springframework/core/annotation/Order.class"
+    },
+    {
+      "glob": "org/springframework/data/redis/core/convert/ReferenceResolverImpl.class"
+    },
+    {
+      "glob": "org/springframework/data/redis/serializer/RedisSerializer.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/EnableSpringDataWebSupport$QuerydslActivator.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/EnableSpringDataWebSupport$SpringDataWebConfigurationImportSelector.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/EnableSpringDataWebSupport$SpringDataWebSettingsRegistrar.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/EnableSpringDataWebSupport.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/ProjectingArgumentResolverRegistrar$ProjectingArgumentResolverBeanPostProcessor.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/ProjectingArgumentResolverRegistrar.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/SpringDataJackson3Configuration.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/SpringDataJackson3Modules.class"
+    },
+    {
+      "glob": "org/springframework/data/web/config/SpringDataWebConfiguration.class"
     },
     {
       "glob": "org/springframework/transaction/annotation/AbstractTransactionManagementConfiguration.class"
@@ -6536,6 +8400,10 @@
     },
     {
       "glob": "static/index.html"
+    },
+    {
+      "module": "jdk.jfr",
+      "glob": "jdk/jfr/internal/types/metadata.bin"
     },
     {
       "bundle": "com.mysql.cj.LocalizedErrorMessages"
