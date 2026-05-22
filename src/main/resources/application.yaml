@@ -14,6 +14,11 @@ spring:
       password: 123
   cache:
     type: redis
+  session:
+    store-type: redis
+    timeout: 30m
+    redis:
+      namespace: native-demo:session
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
   configuration:
