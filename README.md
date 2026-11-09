@@ -8,7 +8,7 @@ Spring Boot 4 + MyBatis-Plus + Redis + Spring Security + GraalVM Native Image �
 
 | 工具 | 版本 | 备注 |
 |---|---|---|
-| GraalVM JDK | 25 | 含 `native-image` 与 tracing agent |
+| JDK | 25 | 容器构建会自动下载 Linux GraalVM，本机无需安装 tracing agent |
 | Maven | 3.9+ | |
 | Docker | 20+ | native 镜像构建用 buildpacks，Windows 无需装 Visual Studio |
 | MySQL | 8+ | |
@@ -39,15 +39,15 @@ src/main/java/com/maxqiu/test/
     ├── SecurityConfig.java      # form login，/cache/** 需 ADMIN 角色
     ├── MyBatisConfig.java       # MapperFactoryBean 显式注册（native 兼容）
     ├── CacheConfig.java         # Redis cache TTL + key prefix
-    ├── MyBatisNativeHints.java  # mapper XML 资源 hint
+    ├── BusinessNativeHints.java # 构建时自动扫描 Entity / DTO
+    ├── MyBatisNativeHints.java  # Mapper 代理、XML 资源及框架反射 hint
+    ├── NativeLambdaFeature.java # 自动注册可序列化的方法引用
     └── SecuritySessionNativeHints.java  # Security / Session 序列化 hint
 
 src/main/resources/
 ├── application.yaml
 ├── mapper/UserMapper.xml        # countByAge GROUP BY SQL
-├── db/init-schema.sql           # 建表 + 初始数据
-└── META-INF/native-image/
-    └── .../reachability-metadata.json   # GraalVM 反射 / 资源 hint
+└── db/init-schema.sql           # 建表 + 初始数据
 ```
 
 ---
@@ -90,7 +90,8 @@ CREATE DATABASE native_demo CHARACTER SET utf8mb4;
 |---|---|
 | JVM 开发 | `mvn spring-boot:run` |
 | JVM JAR | `mvn package -DskipTests` → `java -jar target/*.jar` |
-| Native 容器（一键） | `run-native-test.bat` |
+| Native 镜像打包 | `build-native-image.bat` |
+| Native 容器测试 | `run-native-test.bat`（使用已有的本地镜像） |
 | Native 容器（手动） | 见下方"构建 Native 镜像"节 |
 
 ---
@@ -165,65 +166,73 @@ CREATE DATABASE native_demo CHARACTER SET utf8mb4;
 
 ---
 
-## 收集 Native Hints
+## Native Hints 自动生成
 
-每当新增功能或改动反射/资源加载相关代码，需重跑 agent 更新 `reachability-metadata.json`。
+项目通过 Spring AOT、Java Hints 注册器和依赖元数据仓库构建 Native Image，日常不需要运行 Agent，也不维护采集得到的 JSON。
+源码中的旧 `reachability-metadata.json` 和收集脚本已移除。构建目录中仍会生成元数据，这是 Native Image 正常的构建产物。
 
-### 一键脚本
+| 内容 | 处理方式 |
+|---|---|
+| Spring Bean 和自动配置 | Spring AOT |
+| `com.maxqiu.test.entity`、`com.maxqiu.test.dto` | `BusinessNativeHints` 在构建时扫描，并注册字段、构造器、属性和嵌套属性类型 |
+| `com.maxqiu.test.mapper` | `MyBatisNativeHints` 在构建时扫描并注册 Mapper 代理和方法 |
+| Mapper XML、MyBatis DTD、框架动态访问 | `MyBatisNativeHints` 显式注册 |
+| MyBatis-Plus Lambda 查询的方法引用 | `NativeLambdaFeature` 在 Native 构建阶段扫描 `com.maxqiu.test` 下的可序列化 Lambda 捕获类 |
+| Security / Redis Session 的 JDK 序列化 | `SecuritySessionNativeHints` 显式注册 |
+| 已有配置的第三方依赖 | Native Maven 插件自动引入 GraalVM Reachability Metadata Repository |
 
-```bat
-collect-hints.bat
-```
+新增 Entity / DTO 放入上述包即可，不需要添加 `@RegisterReflectionForBinding`。
+新增 Mapper 仍需按 `MyBatisConfig` 的方式注册为 `MapperFactoryBean`；原生代理提示由扫描生成。
+扫描只在 AOT 构建阶段执行。其他包中的业务类型需要扩展扫描范围；新增第三方组件、自定义 TypeHandler、动态类名或 Session 属性类型，需要评估并补充对应的 Java Hints。
 
-流程：
-
-1. `mvn clean package -DskipTests`
-2. 后台启动 JAR + native-image-agent（每 5 秒 flush 一次）
-3. 轮询日志，等待 `Started NativeImageTestApplication`
-4. 自动运行 `test-api.ps1` 覆盖所有反射路径
-5. 等待 7 秒最终 flush，杀 JVM，清理 `.lock` 文件
-
-### 手动步骤（调试时）
+可运行以下测试验证新类型无需注解也能生成提示：
 
 ```powershell
-# 1. 打包
-mvn clean package -DskipTests
-
-# 2. 启动 + agent
-java "-agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image/com.maxqiu/native-image-test,config-write-period-secs=5" `
-     -jar target/NativeImageTest-0.0.1-SNAPSHOT.jar
-
-# 3. 另开窗口跑测试
-.\test-api.ps1
-
-# 4. 测完后 Ctrl+C 停 JVM（让 agent 正常 flush，勿强杀）
+mvn -Dtest=NativeHintsTests test
 ```
 
 ---
 
 ## 构建 Native 镜像并测试
 
-### 一键脚本
+### 打包脚本
+
+```bat
+build-native-image.bat
+```
+
+执行 `mvn -Pnative clean spring-boot:build-image -DskipTests`，清理旧构建产物并通过 Paketo buildpack 在 Linux 容器内编译。
+生成本地镜像 `native-image-test:0.0.1-SNAPSHOT`，打包完成后不启动容器或运行接口测试。
+额外的 Maven 参数可以直接传给脚本，例如 `build-native-image.bat -Dnative-image.parallelism=4`。
+
+### 测试脚本
 
 ```bat
 run-native-test.bat
 ```
 
-流程：
+使用已有的本地镜像进行测试，不执行 Maven 构建。镜像不存在时，脚本返回非零退出码并提示先运行打包脚本。
+首次使用或代码有改动时，先运行 `build-native-image.bat` 更新镜像，再运行测试脚本。
 
-1. `mvn spring-boot:build-image -Pnative -DskipTests`（Paketo buildpack，Linux 容器内编译）
-2. `docker run -d -p 8080:8080 native-image-test:0.0.1-SNAPSHOT`
+测试流程：
+
+1. 检查 Docker 和本地镜像
+2. 启动测试容器，将端口 `8080` 映射到本机
 3. 轮询 `docker logs`，等待 `Started NativeImageTestApplication`
-4. 自动运行 `test-api.ps1`
-5. `docker stop` + `docker rm` 清理容器
+4. 自动运行 `test-api.ps1` 的 32 个接口场景和 `test-native-behavior.ps1` 的 18 项行为断言；任一失败时脚本返回非零退出码
+5. 保存容器日志到 `target/native-container.log`，行为断言报告到 `target/native-assertions.json`，然后清理测试容器；本地镜像会保留
 
 > 构建耗时：首次约 10~20 分钟（拉取 buildpack 镜像 + GraalVM 编译），后续约 5 分钟。
+
+容器内 Native 编译默认使用 8 个线程，避免占满本机所有逻辑处理器。可通过 `-Dnative-image.parallelism=4` 等参数调整。
+本机 BellSoft NIK 25.0.4.1 的构建 JVM 曾多次发生 JVMCI / C2 崩溃，因此默认通过 `-J-XX:TieredStopAtLevel=1` 让构建器使用 HotSpot C1，并限制其处理器数量。
+该参数只影响构建 JVM，不会将最终程序改为 JVM 应用，也不改变 Native Image 的优化等级。可通过 `native-image.builder-jvm-arguments` 属性覆盖。
 
 ### 手动步骤
 
 ```powershell
 # 构建
-mvn spring-boot:build-image -Pnative -DskipTests
+mvn -Pnative clean spring-boot:build-image -DskipTests
 
 # 运行
 docker run -d --name native-test -p 8080:8080 native-image-test:0.0.1-SNAPSHOT
@@ -231,6 +240,7 @@ docker logs -f native-test
 
 # 测试（另开窗口）
 .\test-api.ps1
+.\test-native-behavior.ps1
 
 # 清理
 docker stop native-test
