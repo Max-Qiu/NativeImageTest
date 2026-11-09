@@ -42,7 +42,7 @@ public class SecuritySessionNativeHints implements RuntimeHintsRegistrar {
             hints.reflection().registerType(ref,
                 MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
                 MemberCategory.INVOKE_DECLARED_METHODS,
-                MemberCategory.DECLARED_FIELDS);
+                MemberCategory.ACCESS_DECLARED_FIELDS);
         }
     }
 }

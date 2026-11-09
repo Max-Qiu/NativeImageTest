@@ -8,6 +8,8 @@
 $BaseUrl   = 'http://localhost:8080'
 $AdminUser = 'test-admin'
 $AdminPass = 'admin123'
+$ErrorActionPreference = 'Stop'
+$script:failureCount = 0
 
 $script:session   = $null
 $script:newUserId = $null   # ID of user created in PART 1
@@ -29,6 +31,7 @@ function Invoke-Test {
         return $result
     } catch {
         $sw.Stop()
+        $script:failureCount++
         Write-Host "FAILED: $($_.Exception.Message)" -ForegroundColor Red
         return $null
     }
@@ -63,6 +66,7 @@ Invoke-Test '0a. POST /auth/register -- register admin (skip if exists)' {
             -Body (@{ username = $AdminUser; password = $AdminPass; role = 'ADMIN' } | ConvertTo-Json) `
             -ContentType 'application/json'
     } catch {
+        if ($null -eq $_.Exception.Response -or [int]$_.Exception.Response.StatusCode -ne 409) { throw }
         Write-Host "(already exists, skipped: $($_.Exception.Message))" -ForegroundColor DarkGray
         $null
     }
@@ -219,8 +223,15 @@ Invoke-Test '4b. GET /auth/me -- after logout (expect 401)' {
     try {
         Req '/auth/me'
     } catch {
-        "401 as expected: $($_.Exception.Message)"
+        if ($null -eq $_.Exception.Response -or [int]$_.Exception.Response.StatusCode -ne 401) { throw }
+        return "401 as expected: $($_.Exception.Message)"
     }
+    throw 'Expected HTTP 401 after logout'
 }
 
 Write-Host "`n========== All tests done ==========" -ForegroundColor Cyan
+if ($script:failureCount -gt 0) {
+    Write-Host "$($script:failureCount) test(s) failed." -ForegroundColor Red
+    exit 1
+}
+exit 0

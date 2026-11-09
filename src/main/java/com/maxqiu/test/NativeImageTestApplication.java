@@ -1,6 +1,7 @@
 package com.maxqiu.test;
 
 import com.maxqiu.test.config.MyBatisNativeHints;
+import com.maxqiu.test.config.BusinessNativeHints;
 import com.maxqiu.test.config.SecuritySessionNativeHints;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
 
 @SpringBootApplication
 @EnableCaching
-@ImportRuntimeHints({MyBatisNativeHints.class, SecuritySessionNativeHints.class})
+@ImportRuntimeHints({BusinessNativeHints.class, MyBatisNativeHints.class, SecuritySessionNativeHints.class})
 public class NativeImageTestApplication {
 
     public static void main(String[] args) {
