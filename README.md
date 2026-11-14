@@ -1,6 +1,6 @@
 # NativeImageTest
 
-Spring Boot 4 + MyBatis-Plus + Redis + Spring Security + GraalVM Native Image 完整兼容性验证示例。
+Spring Boot 4 + MyBatis-Plus + Redis + Spring Security + Jakarta Validation + GraalVM Native Image 完整兼容性验证示例。
 
 ---
 
@@ -24,7 +24,15 @@ src/main/java/com/maxqiu/test/
 ├── controller/
 │   ├── AuthController.java      # 注册 / 登录 / 登出 / 当前用户
 │   ├── UserController.java      # 业务用户 CRUD
-│   └── CacheController.java     # Spring Cache 注解 + StringRedisTemplate
+│   ├── CacheController.java     # Spring Cache 注解 + StringRedisTemplate
+│   ├── ValidationController.java # 请求体 / 分组 / MVC 参数 / Service 方法校验
+│   └── ValidationExceptionHandler.java # 校验异常统一返回 400
+├── dto/
+│   ├── ValidationRequest.java   # 字段、嵌套对象、集合元素与 Update 分组
+│   └── ValidationErrorResponse.java # 统一校验错误响应
+├── validation/
+│   ├── DemoCode.java            # 自定义约束
+│   └── DemoCodeValidator.java   # 自定义校验器
 ├── entity/
 │   ├── SysUser.java             # 认证用户（t_sys_user）
 │   └── User.java                # 业务用户（t_user）
@@ -34,12 +42,14 @@ src/main/java/com/maxqiu/test/
 ├── service/
 │   ├── SysUserService / Impl
 │   ├── UserService / Impl
-│   └── CacheService / Impl      # @Cacheable / @CachePut / @CacheEvict
+│   ├── CacheService / Impl      # @Cacheable / @CachePut / @CacheEvict
+│   └── ValidationService.java   # @Validated 方法代理校验
 └── config/
     ├── SecurityConfig.java      # form login，/cache/** 需 ADMIN 角色
     ├── MyBatisConfig.java       # MapperFactoryBean 显式注册（native 兼容）
     ├── CacheConfig.java         # Redis cache TTL + key prefix
     ├── BusinessNativeHints.java # 构建时自动扫描 Entity / DTO
+    ├── ValidationNativeHints.java # 从 DTO 约束元数据注册校验器构造器
     ├── MyBatisNativeHints.java  # Mapper 代理、XML 资源及框架反射 hint
     ├── NativeLambdaFeature.java # 自动注册可序列化的方法引用
     └── SecuritySessionNativeHints.java  # Security / Session 序列化 hint
@@ -144,6 +154,52 @@ CREATE DATABASE native_demo CHARACTER SET utf8mb4;
 | POST | `/cache/redis/set?key=&value=&ttlSeconds=` | 写入（TTL 可选） |
 | DELETE | `/cache/redis/delete?key=` | 删除键 |
 
+### 参数校验（`/validation`）
+
+所有接口需要登录；演示接口直接返回校验后的数据，不写入数据库。
+引入 `spring-boot-starter-validation`，使用 Jakarta Validation 注解与 Hibernate Validator。
+
+| 方法 | 路径 | 验证内容 |
+|---|---|---|
+| POST | `/validation/body` | `@Valid` 请求体：`@NotBlank`、`@Size`、`@Email`、`@NotNull`、`@Min`、`@Max` |
+| PUT | `/validation/body` | `@Validated(Update.class)`：额外要求 `id` 非空，并继承 Default 分组 |
+| GET | `/validation/parameters?count=1` | MVC 方法参数校验，`count` 范围为 1～10 |
+| GET | `/validation/service?value=native` | Service 的 `@Validated` 代理校验，`value` 非空白且长度为 3～20 |
+
+POST 请求体示例（PUT 时增加 `"id": 1`）：
+
+```json
+{
+  "name": "Native Demo",
+  "email": "demo@example.com",
+  "age": 28,
+  "address": { "city": "Shanghai", "zipCode": "200000" },
+  "tags": ["native"],
+  "code": "DEMO-ABC"
+}
+```
+
+`name` 最多 40 字符，`age` 范围为 18～120。`address` 必填并通过 `@Valid` 级联校验，
+其中 `city` 非空白，`zipCode` 为六位数字；`tags` 至少包含一个元素且每个元素非空白。
+`code` 使用自定义 `@DemoCode`，格式为 `DEMO-` 加三个大写字母。
+
+校验失败返回 HTTP 400，包含字段路径和错误信息，例如：
+
+```json
+{
+  "error": "VALIDATION_FAILED",
+  "violations": [
+    { "field": "address.city", "message": "must not be blank" }
+  ]
+}
+```
+
+错误信息随请求语言变化，测试断言状态码、字段路径和非空消息。
+`ValidationExceptionHandler` 仅作用于演示控制器，覆盖请求体、MVC 方法参数和 Service 约束异常。
+MVC 控制器不加类级 `@Validated`，使用框架内建方法校验；Service 使用类级 `@Validated` 触发代理校验。
+参见 [Spring MVC 校验文档](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)
+与 [Spring Boot 校验文档](https://docs.spring.io/spring-boot/reference/io/validation.html)。
+
 ---
 
 ## 接口测试
@@ -154,7 +210,7 @@ CREATE DATABASE native_demo CHARACTER SET utf8mb4;
 .\test-api.ps1
 ```
 
-脚本分 5 段，共覆盖所有接口：
+`test-api.ps1` 分 5 段，覆盖原有接口：
 
 | Part | 内容 | 关键验证点 |
 |---|---|---|
@@ -163,6 +219,20 @@ CREATE DATABASE native_demo CHARACTER SET utf8mb4;
 | 2. Spring Cache | `@Cacheable` / `@CachePut` / `@CacheEvict` | hitCount 计数器验证命中行为 |
 | 3. RedisTemplate | set / get / keys / delete（含 TTL） | StringRedisTemplate 直接操作 |
 | 4. 登出 | 销毁 Session → 再访问返回 401 | Session 清理 |
+
+Validation 的 26 项行为断言单独运行（JVM 和 Native 均可）：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\test-validation.ps1
+# 指定其他端口
+powershell -NoProfile -ExecutionPolicy Bypass -File .\test-validation.ps1 -BaseUrl http://localhost:8081
+# JVM 自动化测试，包含 20 个 validation 测试用例
+mvn test
+```
+
+脚本自动注册或复用 `test-admin`、登录、验证正反例并登出，覆盖字段约束、嵌套对象、集合元素、
+Update 分组、自定义校验器、MVC 参数边界、Service 代理及未登录访问。
+任一断言失败返回非零退出码；通过后保存报告到 `target/validation-assertions.json`。
 
 ---
 
@@ -175,6 +245,7 @@ CREATE DATABASE native_demo CHARACTER SET utf8mb4;
 |---|---|
 | Spring Bean 和自动配置 | Spring AOT |
 | `com.maxqiu.test.entity`、`com.maxqiu.test.dto` | `BusinessNativeHints` 在构建时扫描，并注册字段、构造器、属性和嵌套属性类型 |
+| Entity / DTO 上的 Validation 约束 | `ValidationNativeHints` 在构建时扫描约束元数据，注册内置及自定义校验器构造器，包含集合元素和组合约束；Bean 方法约束由 Spring AOT 处理 |
 | `com.maxqiu.test.mapper` | `MyBatisNativeHints` 在构建时扫描并注册 Mapper 代理和方法 |
 | Mapper XML、MyBatis DTD、框架动态访问 | `MyBatisNativeHints` 显式注册 |
 | MyBatis-Plus Lambda 查询的方法引用 | `NativeLambdaFeature` 在 Native 构建阶段扫描 `com.maxqiu.test` 下的可序列化 Lambda 捕获类 |
@@ -219,8 +290,8 @@ run-native-test.bat
 1. 检查 Docker 和本地镜像
 2. 启动测试容器，将端口 `8080` 映射到本机
 3. 轮询 `docker logs`，等待 `Started NativeImageTestApplication`
-4. 自动运行 `test-api.ps1` 的 32 个接口场景和 `test-native-behavior.ps1` 的 18 项行为断言；任一失败时脚本返回非零退出码
-5. 保存容器日志到 `target/native-container.log`，行为断言报告到 `target/native-assertions.json`，然后清理测试容器；本地镜像会保留
+4. 自动运行 `test-api.ps1` 的 32 个接口场景、`test-native-behavior.ps1` 的 18 项行为断言和 `test-validation.ps1` 的 26 项校验断言；任一失败时脚本返回非零退出码
+5. 保存容器日志到 `target/native-container.log`，行为断言报告到 `target/native-assertions.json` 和 `target/validation-assertions.json`，然后清理测试容器；本地镜像会保留
 
 > 构建耗时：首次约 10~20 分钟（拉取 buildpack 镜像 + GraalVM 编译），后续约 5 分钟。
 
@@ -241,6 +312,7 @@ docker logs -f native-test
 # 测试（另开窗口）
 .\test-api.ps1
 .\test-native-behavior.ps1
+.\test-validation.ps1
 
 # 清理
 docker stop native-test

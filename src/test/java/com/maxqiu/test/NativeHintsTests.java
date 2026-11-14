@@ -2,6 +2,8 @@ package com.maxqiu.test;
 
 import com.maxqiu.test.config.BusinessNativeHints;
 import com.maxqiu.test.config.MyBatisNativeHints;
+import com.maxqiu.test.config.ValidationNativeHints;
+import com.maxqiu.test.validation.DemoCodeValidator;
 import com.maxqiu.test.dto.UnannotatedPayload;
 import com.maxqiu.test.mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +14,22 @@ import org.springframework.aot.hint.predicate.RuntimeHintsPredicates;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class NativeHintsTests {
+
+    @Test
+    void registersConstructorsForDtoValidatorsIncludingCustomAndContainerConstraints() throws Exception {
+        RuntimeHints hints = new RuntimeHints();
+        new ValidationNativeHints().registerHints(hints, getClass().getClassLoader());
+
+        for (Class<?> type : java.util.List.of(DemoCodeValidator.class,
+                org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator.class,
+                org.hibernate.validator.internal.constraintvalidators.bv.NotBlankValidator.class,
+                org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator.class,
+                org.hibernate.validator.internal.constraintvalidators.bv.notempty.NotEmptyValidatorForCollection.class,
+                org.hibernate.validator.internal.constraintvalidators.bv.PatternValidator.class)) {
+            assertThat(RuntimeHintsPredicates.reflection().onConstructorInvocation(type.getDeclaredConstructor()))
+                    .accepts(hints);
+        }
+    }
 
     @Test
     void discoversNewDtoWithoutAnnotationsAndItsNestedPropertyTypes() {
