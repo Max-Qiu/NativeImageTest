@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{thymeleaf/layout}">
+<section th:fragment="content" th:remove="tag">
+    <th:block th:insert="~{thymeleaf/parts :: message(value=${message})}"></th:block>
+    <div id="tree" th:if="${recursive}">
+        <th:block th:insert="~{thymeleaf/tree :: node(value=${tree},depth=0)}"></th:block>
+    </div>
+</section>
+<script th:fragment="inlineCode" th:remove="tag">
+    window.fragment = 'ready';
+</script>
+</html>

@@ -1,6 +1,8 @@
 spring:
   application:
     name: NativeImageTest
+  thymeleaf:
+    enable-spring-el-compiler: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.220.201:3306/native_demo?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true

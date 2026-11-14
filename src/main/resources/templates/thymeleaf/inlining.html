@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Inlining syntax</title></head>
+<body>
+<p id="inline-text">[[${text}]]</p>
+<script id="inline-script">
+    window.syntax = {count: [[${count}]], position: [[${position}]]};
+    window.literal = '[[${text}]]';
+</script>
+</body>
+</html>

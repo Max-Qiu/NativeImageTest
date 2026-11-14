@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/><title>Attribute syntax</title>
+    <meta id="metadata" name="description" th:content="${sample.value}"/>
+</head>
+<body>
+<a id="concatenated-link" th:href="'/thymeleaf/text?sample=' + ${position}">Concatenated link</a>
+<a id="url-expression" th:href="@{(${target})}">URL expression</a>
+<input id="value" type="text" th:value="${sample.value}" th:title="${sample.value}"/>
+<input th:each="token : ${tokens}" type="checkbox" th:id="'checkbox-' + ${token}"
+       th:checked="${selected.contains(token)}" th:value="${token}" th:title="${token}"/>
+<div id="custom-attribute" th:data-syntax="'attributes'"></div>
+<button id="event" th:style="'margin-left:' + ${position * 2} + 'px'"
+        th:onclick="'select(' + ${position} + ')'">Attribute expressions</button>
+</body>
+</html>
