@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Condition and iteration syntax</title></head>
+<body>
+<p id="enabled" th:if="${enabled}">Enabled branch</p>
+<p id="disabled" th:if="${!enabled}">Disabled branch</p>
+<p id="choice" class="condition" th:classappend="${enabled} ? 'active' : ''"
+   th:text="${enabled} ? 'enabled' : 'disabled'">Prototype choice</p>
+<p id="empty" th:if="${empty}">Empty collection</p>
+<ul>
+    <li th:each="item : ${items}" th:id="'item-' + ${item.code}">
+        <span class="item-code" th:text="${item.code}">Prototype code</span>
+        <span class="item-enabled" th:if="${item.enabled}">Enabled item</span>
+    </li>
+</ul>
+</body>
+</html>

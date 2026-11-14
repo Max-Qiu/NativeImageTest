@@ -80,6 +80,11 @@ if errorlevel 1 (
   goto cleanup
 )
 powershell -NoProfile -ExecutionPolicy Bypass -File "%PROJECT_DIR%\test-validation.ps1"
+if errorlevel 1 (
+  set "TEST_EXIT=1"
+  goto cleanup
+)
+powershell -NoProfile -ExecutionPolicy Bypass -File "%PROJECT_DIR%\test-thymeleaf.ps1"
 if errorlevel 1 set "TEST_EXIT=1"
 
 rem ====== cleanup ======

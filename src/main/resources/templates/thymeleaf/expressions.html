@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Expression syntax</title></head>
+<body>
+<p id="nested-property" th:text="${wrapper.nested.value}">Prototype value</p>
+<span class="split-value" th:each="token : ${source.split(',')}" th:text="${token}">Prototype token</span>
+<p id="contains" th:text="${values.contains('beta')}">Prototype result</p>
+<p id="date" th:text="${#temporals.format(timestamp, 'yyyy/MM/dd')}">Prototype date</p>
+<p id="date-time" th:text="${#temporals.format(timestamp, 'yyyy/MM/dd HH:mm:ss')}">Prototype date time</p>
+<p id="arithmetic" th:text="${left * right}">Prototype result</p>
+<p id="comparison" th:text="${left lt right} ? 'less' : 'greater-or-equal'">Prototype result</p>
+<p id="concatenation" th:text="'value-' + ${right}">Prototype result</p>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Context syntax</title></head>
+<body>
+<p id="parameter-present" th:if="${param.flag != null}">Parameter present</p>
+<p id="session-string" th:if="${session.syntaxValue != null}" th:text="${session.syntaxValue}">Prototype session value</p>
+<p id="session-property" th:if="${session.syntaxObject != null}"
+   th:text="${session.syntaxObject.message}">Prototype property</p>
+</body>
+</html>

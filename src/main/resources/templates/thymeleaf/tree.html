@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="node(value,depth)" th:id="'node-' + ${value.name}" th:data-depth="${depth}">
+    <span class="node-name" th:text="${value.name}">Prototype node</span>
+    <ul>
+        <li th:each="child : ${value.children}">
+            <th:block th:insert="~{thymeleaf/tree :: node(value=${child},depth=${depth + 1})}"></th:block>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><th:block th:insert="~{thymeleaf/parts :: head}"></th:block></head>
+<body>
+<header id="layout-marker">Layout replacement</header>
+<main id="fragment-slot" th:insert="~{::content}"></main>
+<script id="fragment-script" th:insert="~{::inlineCode}"></script>
+</body>
+</html>
