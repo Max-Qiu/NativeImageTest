@@ -49,7 +49,7 @@ public class SecurityConfig {
         http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/login", "/auth/register", "/error").permitAll()
-            .requestMatchers("/cache/**").hasRole("ADMIN")
+            .requestMatchers("/cache/**", "/probes/**").hasRole("ADMIN")
             .anyRequest().authenticated());
         http.exceptionHandling(ex -> ex
             .authenticationEntryPoint((_, res, _) -> res.setStatus(401)));

@@ -29,7 +29,7 @@ rem ====== 1/3 start container ======
 echo.
 echo === [1/3] docker run %IMAGE% ===
 docker rm -f %CONTAINER% >nul 2>&1
-docker run -d -p 8080:8080 --name %CONTAINER% %IMAGE%
+docker run -d -p 8080:8080 --read-only --tmpfs /tmp:rw,size=64m,mode=1777 --name %CONTAINER% %IMAGE%
 if errorlevel 1 (
   echo Failed to start container.
   exit /b 1

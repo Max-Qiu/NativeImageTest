@@ -292,6 +292,33 @@ Update 分组、自定义校验器、MVC 参数边界、Service 代理及未登�
 
 ---
 
+## 兼容性补充示例（`/probes`）
+
+`com.maxqiu.test.compatibility` 中的编号样本与现有应用共用入口、认证、MySQL 和 Redis 配置。
+所有 `/probes/**` 接口需要 ADMIN 角色；静态样本沿用默认登录要求。
+
+| 验证点 | 接口 / 测试 |
+|---|---|
+| 分页插件 | POST `/probes/datasets/{key}` 创建六条编号记录；GET `/probes/datasets/{key}/page?page=2&size=2` 验证 COUNT、LIMIT、OFFSET 和越界页 |
+| 枚举类型处理器 | `ProbeRow.Phase` 通过 `@EnumValue` 保存 10/20/30；分页参数 `phase=BETA` 验证 Lambda 筛选；`/codes` 返回实际数据库编码 |
+| 枚举列表缓存 | GET `/probes/datasets/{key}/cache`；POST `/first-phase?phase=GAMMA` 修改数据库；DELETE `/cache` 清理快照，验证 Redis 类型还原和重新加载 |
+| 集合构造 | GET `/probes/collections` 通过 MyBatis `DefaultObjectFactory` 构造 List、Map、Set、SortedSet |
+| 打包资源 | GET `/probes/resources` 流式读取内嵌资源；GET `/native-probes/sample.txt` 验证静态资源服务 |
+| 外部文件生成 | POST / GET / DELETE `/probes/artifacts/{key}` 创建、读取、覆盖和删除 XML，验证文本转义及内嵌资源不变 |
+| AOT 配置文件 | `AotPropertiesCollisionTests` 使用真实 Spring AOT 重现同路径覆盖，并验证分目录保存；Native 脚本检查 JAR 中生成配置和自定义 Feature 同时存在 |
+
+创建样本时通过 `db/native-probes.sql` 执行 `CREATE TABLE IF NOT EXISTS`，只初始化 `native_probe_row`；
+应用启动不因此增加数据库初始化依赖。样本使用随机标识，测试结束清理对应记录和生成文件。
+生成目录由 `NATIVE_PROBES_OUTPUT_DIRECTORY` 指定，默认在 Java 临时目录下的 `native-image-probes`。
+JVM 数据库用例使用 H2 MySQL 模式及本地缓存；Native 用例使用真实 MySQL、Redis，并在只读根文件系统、
+可写 `/tmp` 的容器中运行。
+
+示例已接入 `mvn test`、`test-native-behavior.ps1` 和 `run-native-test.bat`。
+继续使用 `build-native-image.bat` 构建同一个镜像，说明和执行入口统一保留在本项目现有文件中。
+集合构造提示的 JVM 测试只实例化 `MyBatisNativeHints`，检查其独立于 Session 提示的完整性。
+
+---
+
 ## Native Hints 自动生成
 
 项目通过 Spring AOT、Java Hints 注册器和依赖元数据仓库构建 Native Image，日常不需要运行 Agent，也不维护采集得到的 JSON。
@@ -304,7 +331,8 @@ Update 分组、自定义校验器、MVC 参数边界、Service 代理及未登�
 | Entity / DTO 上的 Validation 约束 | `ValidationNativeHints` 在构建时扫描约束元数据，注册内置及自定义校验器构造器，包含集合元素和组合约束；Bean 方法约束由 Spring AOT 处理 |
 | Thymeleaf 页面 | `BusinessNativeHints` 注册语法测试模型属性；`ThymeleafNativeHints` 注册模板资源、`String.split`、Session 消息对象序列化及 Jackson 3 序列化器初始化方法；其余引擎元数据由依赖元数据仓库提供 |
 | `com.maxqiu.test.mapper` | `MyBatisNativeHints` 在构建时扫描并注册 Mapper 代理和方法 |
-| Mapper XML、MyBatis DTD、框架动态访问 | `MyBatisNativeHints` 显式注册 |
+| Mapper XML、MyBatis DTD、集合构造器、分页代理和字段、枚举类型处理器 | `MyBatisNativeHints` 显式注册 |
+| 编号样本、分页响应和静态资源 | `ProbeNativeHints` 注册兼容性示例模型、Mapper 和资源 |
 | MyBatis-Plus Lambda 查询的方法引用 | `NativeLambdaFeature` 在 Native 构建阶段扫描 `com.maxqiu.test` 下的可序列化 Lambda 捕获类 |
 | Security / Redis Session 的 JDK 序列化 | `SecuritySessionNativeHints` 显式注册 |
 | 已有配置的第三方依赖 | Native Maven 插件自动引入 GraalVM Reachability Metadata Repository |
@@ -345,9 +373,9 @@ run-native-test.bat
 测试流程：
 
 1. 检查 Docker 和本地镜像
-2. 启动测试容器，将端口 `8080` 映射到本机
+2. 启动根文件系统只读、`/tmp` 可写的测试容器，将端口 `8080` 映射到本机
 3. 轮询 `docker logs`，等待 `Started NativeImageTestApplication`
-4. 自动运行 `test-api.ps1` 的 32 个接口场景、`test-native-behavior.ps1` 的 18 项行为断言、`test-validation.ps1` 的 26 项校验断言和 `test-thymeleaf.ps1` 的 32 项模板断言；任一失败时脚本返回非零退出码
+4. 自动运行 `test-api.ps1` 的 32 个接口场景、`test-native-behavior.ps1` 的 49 项行为断言（含兼容性补充示例）、`test-validation.ps1` 的 26 项校验断言和 `test-thymeleaf.ps1` 的 32 项模板断言；任一失败时脚本返回非零退出码
 5. 保存容器日志到 `target/native-container.log`，断言报告到 `target/native-assertions.json`、`target/validation-assertions.json` 和 `target/thymeleaf-assertions.json`，然后清理测试容器；本地镜像会保留
 
 > 构建耗时：首次约 10~20 分钟（拉取 buildpack 镜像 + GraalVM 编译），后续约 5 分钟。
@@ -363,7 +391,7 @@ run-native-test.bat
 mvn -Pnative clean spring-boot:build-image -DskipTests
 
 # 运行
-docker run -d --name native-test -p 8080:8080 native-image-test:0.0.1-SNAPSHOT
+docker run -d --name native-test -p 8080:8080 --read-only --tmpfs /tmp:rw,size=64m,mode=1777 native-image-test:0.0.1-SNAPSHOT
 docker logs -f native-test
 
 # 测试（另开窗口）

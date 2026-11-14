@@ -18,6 +18,44 @@ import static org.assertj.core.api.Assertions.assertThat;
 class NativeHintsTests {
 
     @Test
+    void registersMyBatisCollectionConstructorsWithoutSessionHints() throws Exception {
+        RuntimeHints hints = new RuntimeHints();
+        new MyBatisNativeHints().registerHints(hints, getClass().getClassLoader());
+        // Deliberately do not import SecuritySessionNativeHints here.
+        for (Class<?> type : java.util.List.of(java.util.ArrayList.class, java.util.LinkedList.class,
+                java.util.HashMap.class, java.util.LinkedHashMap.class, java.util.TreeMap.class,
+                java.util.HashSet.class, java.util.TreeSet.class)) {
+            assertThat(RuntimeHintsPredicates.reflection().onConstructorInvocation(type.getConstructor())).accepts(hints);
+        }
+    }
+
+    @Test
+    void registersPaginationPluginSignaturesProxiesFieldsAndEnumHandler() throws Exception {
+        RuntimeHints hints = new RuntimeHints();
+        new MyBatisNativeHints().registerHints(hints, getClass().getClassLoader());
+
+        assertThat(RuntimeHintsPredicates.proxies().forInterfaces(org.apache.ibatis.executor.Executor.class)).accepts(hints);
+        assertThat(RuntimeHintsPredicates.proxies()
+                .forInterfaces(org.apache.ibatis.executor.statement.StatementHandler.class)).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(
+                org.apache.ibatis.executor.statement.StatementHandler.class.getMethod("prepare", java.sql.Connection.class,
+                        Integer.class))).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(
+                org.apache.ibatis.executor.Executor.class.getMethod("query", org.apache.ibatis.mapping.MappedStatement.class,
+                        Object.class, org.apache.ibatis.session.RowBounds.class, org.apache.ibatis.session.ResultHandler.class)))
+                .accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection().onFieldAccess(org.apache.ibatis.mapping.BoundSql.class, "sql"))
+                .accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection()
+                .onFieldAccess(org.apache.ibatis.executor.statement.RoutingStatementHandler.class, "delegate")).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection()
+                .onFieldAccess(org.apache.ibatis.plugin.Plugin.class, "target")).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection().onConstructorInvocation(
+                com.baomidou.mybatisplus.core.handlers.CompositeEnumTypeHandler.class.getConstructor(Class.class)))
+                .accepts(hints);
+    }
+
+    @Test
     void registersTemplateResourcesExpressionMethodsAndSessionModels() throws Exception {
         RuntimeHints hints = new RuntimeHints();
         new ThymeleafNativeHints().registerHints(hints, getClass().getClassLoader());

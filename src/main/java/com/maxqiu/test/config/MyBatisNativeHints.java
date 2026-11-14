@@ -6,10 +6,18 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.handlers.CompositeEnumTypeHandler;
 import com.baomidou.mybatisplus.core.override.MybatisMapperProxy;
 import com.baomidou.mybatisplus.extension.repository.CrudRepository;
 import com.baomidou.mybatisplus.extension.repository.IRepository;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.statement.BaseStatementHandler;
+import org.apache.ibatis.executor.statement.RoutingStatementHandler;
+import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.scripting.defaults.RawLanguageDriver;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.SqlSession;
@@ -38,6 +46,24 @@ public class MyBatisNativeHints implements RuntimeHintsRegistrar {
 
         hints.proxies().registerJdkProxy(SqlSession.class);
         hints.reflection().registerType(SqlSession.class, MemberCategory.INVOKE_PUBLIC_METHODS);
+        // MyBatis DefaultObjectFactory constructs result collections reflectively.
+        for (Class<?> type : new Class<?>[]{java.util.ArrayList.class, java.util.LinkedList.class,
+                java.util.HashMap.class, java.util.LinkedHashMap.class, java.util.TreeMap.class,
+                java.util.HashSet.class, java.util.TreeSet.class}) {
+            hints.reflection().registerType(type, MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
+                    MemberCategory.INVOKE_PUBLIC_METHODS);
+        }
+        // MybatisPlusInterceptor reads interface methods from @Signature and creates proxies.
+        for (Class<?> type : new Class<?>[]{Executor.class, StatementHandler.class}) {
+            hints.reflection().registerType(type, MemberCategory.INVOKE_PUBLIC_METHODS);
+            hints.proxies().registerJdkProxy(type);
+        }
+        // Pagination rewrites BoundSql through MyBatis MetaObject / PluginUtils.
+        for (Class<?> type : new Class<?>[]{BoundSql.class, Plugin.class, RoutingStatementHandler.class,
+                BaseStatementHandler.class, Page.class}) {
+            hints.reflection().registerType(type, MemberCategory.ACCESS_DECLARED_FIELDS,
+                    MemberCategory.INVOKE_PUBLIC_METHODS);
+        }
         for (Class<?> mapper : BusinessNativeHints.scanTypes("com.maxqiu.test.mapper", classLoader)) {
             if (mapper.isInterface()) {
                 hints.proxies().registerJdkProxy(mapper);
@@ -47,7 +73,7 @@ public class MyBatisNativeHints implements RuntimeHintsRegistrar {
 
         // Language drivers and the logger are instantiated using reflection.
         for (Class<?> type : new Class<?>[]{MybatisXMLLanguageDriver.class, XMLLanguageDriver.class,
-                RawLanguageDriver.class, Slf4jImpl.class}) {
+                RawLanguageDriver.class, Slf4jImpl.class, CompositeEnumTypeHandler.class}) {
             hints.reflection().registerType(type, MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
         }
 
