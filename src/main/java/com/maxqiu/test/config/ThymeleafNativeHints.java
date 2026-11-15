@@ -17,7 +17,7 @@ public class ThymeleafNativeHints implements RuntimeHintsRegistrar {
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
         hints.resources().registerPattern("templates/thymeleaf/**");
-        hints.serialization().registerType(ThymeleafModels.Message.class);
+        hints.reflection().registerJavaSerialization(ThymeleafModels.Message.class);
         try {
             hints.reflection().registerMethod(String.class.getMethod("split", String.class), ExecutableMode.INVOKE);
 

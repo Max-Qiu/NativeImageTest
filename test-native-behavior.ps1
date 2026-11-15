@@ -156,6 +156,11 @@ try {
     $freshSnapshot = Request "/probes/datasets/$suffix/cache"
     Check 'Eviction reloads updated enum value' ($freshSnapshot.loads -eq 2 -and $freshSnapshot.rows[0].phase -eq 'GAMMA')
 
+    $batchDeleted = Request "/probes/datasets/$suffix/batch" 'Delete'
+    Check 'deleteByIds OGNL accepts both a scalar ID and an entity' ($batchDeleted -eq 2)
+    $afterBatchDelete = Request "/probes/datasets/$suffix/page?page=1&size=10"
+    Check 'deleteByIds removes only the selected rows' ($afterBatchDelete.total -eq 4 -and (Ordinals $afterBatchDelete.records) -eq '3,4,5,6')
+
     $resource = Request '/probes/resources'
     Check 'Native classpath resource is readable as a stream' ($resource.protocol -eq 'resource' -and $resource.content -eq 'native-regression-static-v1')
     Check 'Embedded resource cannot be resolved as a filesystem File' ($resource.fileResolved -eq $false)

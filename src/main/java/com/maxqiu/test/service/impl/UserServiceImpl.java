@@ -1,6 +1,6 @@
 package com.maxqiu.test.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.maxqiu.test.dto.AgeCount;
 import com.maxqiu.test.entity.User;
 import com.maxqiu.test.mapper.UserMapper;

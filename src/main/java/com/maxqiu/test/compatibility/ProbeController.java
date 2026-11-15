@@ -98,6 +98,12 @@ public class ProbeController {
         service.delete(key);
     }
 
+    @DeleteMapping("/datasets/{key}/batch")
+    public int deleteFirstPairByIds(@PathVariable String key) {
+        cache.evict(key);
+        return service.deleteFirstPairByIds(key);
+    }
+
     @GetMapping("/resources")
     public Map<String, Object> resources() throws Exception {
         var resource = new ClassPathResource("static/native-probes/sample.txt");

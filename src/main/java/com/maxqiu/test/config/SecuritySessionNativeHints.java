@@ -38,11 +38,11 @@ public class SecuritySessionNativeHints implements RuntimeHintsRegistrar {
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
         for (String type : TYPES) {
             TypeReference ref = TypeReference.of(type);
-            hints.serialization().registerType(ref);
-            hints.reflection().registerType(ref,
-                MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
-                MemberCategory.INVOKE_DECLARED_METHODS,
-                MemberCategory.ACCESS_DECLARED_FIELDS);
+            hints.reflection().registerType(ref, builder -> builder
+                .withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS,
+                    MemberCategory.INVOKE_DECLARED_METHODS,
+                    MemberCategory.ACCESS_DECLARED_FIELDS)
+                .withJavaSerialization(true));
         }
     }
 }

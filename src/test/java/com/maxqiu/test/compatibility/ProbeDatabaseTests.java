@@ -49,6 +49,21 @@ class ProbeDatabaseTests {
     }
 
     @Test
+    void deleteByIdsResolvesScalarAndEntityParametersThroughOgnl() {
+        String otherKey = UUID.randomUUID().toString();
+        service.seed(otherKey);
+        try {
+            assertThat(service.deleteFirstPairByIds(key)).isEqualTo(2);
+            assertThat(service.list(key)).extracting(ProbeRow::getOrdinalIndex).containsExactly(3, 4, 5, 6);
+            assertThat(service.list(otherKey)).extracting(ProbeRow::getOrdinalIndex).containsExactly(1, 2, 3, 4, 5, 6);
+            service.delete(key);
+            assertThat(service.deleteFirstPairByIds(key)).isZero();
+        } finally {
+            service.delete(otherKey);
+        }
+    }
+
+    @Test
     void enumValuesUseExplicitDatabaseCodesAndSurviveSelectAndLambdaFiltering() {
         assertThat(service.storedCodes(key)).containsExactly(10, 20, 30, 10, 20, 30);
         var beta = service.page(key, 1, 10, ProbeRow.Phase.BETA);

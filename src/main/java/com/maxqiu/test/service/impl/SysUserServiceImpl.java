@@ -1,6 +1,6 @@
 package com.maxqiu.test.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.maxqiu.test.entity.SysUser;
 import com.maxqiu.test.mapper.SysUserMapper;
 import com.maxqiu.test.service.SysUserService;

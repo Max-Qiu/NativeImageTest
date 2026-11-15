@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.handlers.CompositeEnumTypeHandler;
 import com.baomidou.mybatisplus.core.override.MybatisMapperProxy;
-import com.baomidou.mybatisplus.extension.repository.CrudRepository;
+import com.baomidou.mybatisplus.spring.repository.CrudRepository;
 import com.baomidou.mybatisplus.extension.repository.IRepository;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.executor.Executor;
@@ -18,6 +18,8 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.Plugin;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.scripting.defaults.RawLanguageDriver;
 import org.apache.ibatis.scripting.xmltags.XMLLanguageDriver;
 import org.apache.ibatis.session.SqlSession;
@@ -77,6 +79,11 @@ public class MyBatisNativeHints implements RuntimeHintsRegistrar {
             hints.reflection().registerType(type, MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
         }
 
+        // deleteByIds uses OGNL: @SystemMetaObject@forObject(item).findProperty(...).
+        // Both the static factory and the returned MetaObject need reflective method access.
+        hints.reflection().registerType(SystemMetaObject.class, MemberCategory.INVOKE_PUBLIC_METHODS);
+        hints.reflection().registerType(MetaObject.class, MemberCategory.INVOKE_PUBLIC_METHODS);
+
         // OGNL evaluates wrapper properties in the SQL injected by MyBatis-Plus.
         for (Class<?> type : new Class<?>[]{Wrapper.class, AbstractWrapper.class, QueryWrapper.class,
                 LambdaQueryWrapper.class, BaseMapper.class, MybatisMapperProxy.class, IRepository.class}) {
@@ -89,7 +96,7 @@ public class MyBatisNativeHints implements RuntimeHintsRegistrar {
         hints.reflection().registerType(TypeReference.of("org.apache.ibatis.javassist.ClassPool"));
 
         // LambdaQueryWrapper falls back to serializing method references in native mode.
-        hints.serialization().registerType(java.lang.invoke.SerializedLambda.class);
-        hints.serialization().registerType(com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda.class);
+        hints.reflection().registerJavaSerialization(java.lang.invoke.SerializedLambda.class);
+        hints.reflection().registerJavaSerialization(com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda.class);
     }
 }

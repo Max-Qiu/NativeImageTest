@@ -303,6 +303,7 @@ Update 分组、自定义校验器、MVC 参数边界、Service 代理及未登�
 | 枚举类型处理器 | `ProbeRow.Phase` 通过 `@EnumValue` 保存 10/20/30；分页参数 `phase=BETA` 验证 Lambda 筛选；`/codes` 返回实际数据库编码 |
 | 枚举列表缓存 | GET `/probes/datasets/{key}/cache`；POST `/first-phase?phase=GAMMA` 修改数据库；DELETE `/cache` 清理快照，验证 Redis 类型还原和重新加载 |
 | 集合构造 | GET `/probes/collections` 通过 MyBatis `DefaultObjectFactory` 构造 List、Map、Set、SortedSet |
+| 批量删除 OGNL | DELETE `/probes/datasets/{key}/batch` 混合传入 ID 与实体删除前两条样本，验证 `SystemMetaObject.forObject` / `MetaObject.findProperty` 反射调用及剩余记录 |
 | 打包资源 | GET `/probes/resources` 流式读取内嵌资源；GET `/native-probes/sample.txt` 验证静态资源服务 |
 | 外部文件生成 | POST / GET / DELETE `/probes/artifacts/{key}` 创建、读取、覆盖和删除 XML，验证文本转义及内嵌资源不变 |
 | AOT 配置文件 | `AotPropertiesCollisionTests` 使用真实 Spring AOT 重现同路径覆盖，并验证分目录保存；Native 脚本检查 JAR 中生成配置和自定义 Feature 同时存在 |
@@ -375,7 +376,7 @@ run-native-test.bat
 1. 检查 Docker 和本地镜像
 2. 启动根文件系统只读、`/tmp` 可写的测试容器，将端口 `8080` 映射到本机
 3. 轮询 `docker logs`，等待 `Started NativeImageTestApplication`
-4. 自动运行 `test-api.ps1` 的 32 个接口场景、`test-native-behavior.ps1` 的 49 项行为断言（含兼容性补充示例）、`test-validation.ps1` 的 26 项校验断言和 `test-thymeleaf.ps1` 的 32 项模板断言；任一失败时脚本返回非零退出码
+4. 自动运行 `test-api.ps1` 的 32 个接口场景、`test-native-behavior.ps1` 的 51 项行为断言（含兼容性补充示例和批量删除 OGNL）、`test-validation.ps1` 的 26 项校验断言和 `test-thymeleaf.ps1` 的 32 项模板断言；任一失败时脚本返回非零退出码
 5. 保存容器日志到 `target/native-container.log`，断言报告到 `target/native-assertions.json`、`target/validation-assertions.json` 和 `target/thymeleaf-assertions.json`，然后清理测试容器；本地镜像会保留
 
 > 构建耗时：首次约 10~20 分钟（拉取 buildpack 镜像 + GraalVM 编译），后续约 5 分钟。

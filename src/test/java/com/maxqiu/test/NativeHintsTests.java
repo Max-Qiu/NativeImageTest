@@ -2,6 +2,7 @@ package com.maxqiu.test;
 
 import com.maxqiu.test.config.BusinessNativeHints;
 import com.maxqiu.test.config.MyBatisNativeHints;
+import com.maxqiu.test.config.SecuritySessionNativeHints;
 import com.maxqiu.test.config.ValidationNativeHints;
 import com.maxqiu.test.config.ThymeleafNativeHints;
 import com.maxqiu.test.dto.ThymeleafModels;
@@ -27,6 +28,18 @@ class NativeHintsTests {
                 java.util.HashSet.class, java.util.TreeSet.class)) {
             assertThat(RuntimeHintsPredicates.reflection().onConstructorInvocation(type.getConstructor())).accepts(hints);
         }
+    }
+
+    @Test
+    void registersOgnlMethodsUsedByDeleteByIds() throws Exception {
+        RuntimeHints hints = new RuntimeHints();
+        new MyBatisNativeHints().registerHints(hints, getClass().getClassLoader());
+
+        assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(
+                org.apache.ibatis.reflection.SystemMetaObject.class.getMethod("forObject", Object.class))).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(
+                org.apache.ibatis.reflection.MetaObject.class.getMethod("findProperty", String.class, boolean.class)))
+                .accepts(hints);
     }
 
     @Test
@@ -70,8 +83,8 @@ class NativeHintsTests {
                 .onMethodInvocation(String.class.getMethod("split", String.class))).accepts(hints);
         assertThat(RuntimeHintsPredicates.reflection()
                 .onMethodInvocation(ThymeleafModels.Message.class, "getMessage")).accepts(hints);
-        assertThat(RuntimeHintsPredicates.serialization()
-                .onType(ThymeleafModels.Message.class)).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection()
+                .onJavaSerialization(ThymeleafModels.Message.class, true)).accepts(hints);
         assertThat(RuntimeHintsPredicates.reflection()
                 .onMethodInvocation(ThymeleafModels.Value.class, "getValue")).accepts(hints);
         assertThat(RuntimeHintsPredicates.reflection()
@@ -146,10 +159,26 @@ class NativeHintsTests {
         RuntimeHints hints = new RuntimeHints();
         new MyBatisNativeHints().registerHints(hints, getClass().getClassLoader());
 
-        assertThat(RuntimeHintsPredicates.serialization()
-                .onType(java.lang.invoke.SerializedLambda.class)).accepts(hints);
-        assertThat(RuntimeHintsPredicates.serialization()
-                .onType(com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda.class))
+        assertThat(RuntimeHintsPredicates.reflection()
+                .onJavaSerialization(java.lang.invoke.SerializedLambda.class, true)).accepts(hints);
+        assertThat(RuntimeHintsPredicates.reflection()
+                .onJavaSerialization(com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda.class, true))
                 .accepts(hints);
+    }
+
+    @Test
+    void registersJavaSerializationForSecuritySessionTypes() {
+        RuntimeHints hints = new RuntimeHints();
+        new SecuritySessionNativeHints().registerHints(hints, getClass().getClassLoader());
+
+        for (Class<?> type : java.util.List.of(
+                org.springframework.security.core.context.SecurityContextImpl.class,
+                org.springframework.security.authentication.UsernamePasswordAuthenticationToken.class,
+                org.springframework.security.core.userdetails.User.class,
+                org.springframework.security.web.savedrequest.DefaultSavedRequest.class)) {
+            assertThat(RuntimeHintsPredicates.reflection().onJavaSerialization(type, true)).accepts(hints);
+        }
+        assertThat(RuntimeHintsPredicates.reflection().onFieldAccess(
+                org.springframework.security.core.context.SecurityContextImpl.class, "authentication")).accepts(hints);
     }
 }

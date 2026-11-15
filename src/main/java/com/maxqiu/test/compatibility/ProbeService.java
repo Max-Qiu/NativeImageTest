@@ -54,6 +54,15 @@ public class ProbeService {
                 phase.getCode(), key);
     }
 
+    public int deleteFirstPairByIds(String key) {
+        List<ProbeRow> rows = list(key);
+        if (rows.size() < 2) {
+            return 0;
+        }
+        // Exercise both OGNL branches: a scalar ID and an entity exposing its ID property.
+        return mapper.deleteByIds(List.of(rows.getFirst().getId(), rows.get(1)));
+    }
+
     public void delete(String key) {
         mapper.delete(Wrappers.<ProbeRow>lambdaQuery().eq(ProbeRow::getRunKey, key));
     }
